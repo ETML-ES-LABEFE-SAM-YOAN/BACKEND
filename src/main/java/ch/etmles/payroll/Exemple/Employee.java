@@ -1,4 +1,4 @@
-package ch.etmles.payroll.Entities;
+package ch.etmles.payroll.Exemple;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
