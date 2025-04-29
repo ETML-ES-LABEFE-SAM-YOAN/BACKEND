@@ -1,15 +1,14 @@
 @startuml
-entity Employee {
-    + id : Long [PK]
-    + name : String
-    + email : String [Unique]
-    + department_id : Long [FK]
+entity Lot {
+  + id_lot : Long <<PK>>
+  nom_article : varchar
+  details : varchar
+  satuts : enum
+  enchere_depart : decimal
+  date_heure_fin : date
+  description : text
+  id_categorie : Long <<FK>>
+  id_sous-categorie : Long <<FK>>
+  image_url : varchar
 }
-
-entity Department {
-    + id : Long [PK, Unique]
-    + name : String
-}
-
-Employee }o--|| Department : "belongs to"
 @enduml
