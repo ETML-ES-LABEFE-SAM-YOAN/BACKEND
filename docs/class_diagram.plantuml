@@ -1,35 +1,44 @@
 @startuml
 
-skinparam classAttributeIconSize 0
+package "Lot" {
+    class LotController {
+        + createLot(lot: Lot): ResponseEntity<Lot>
+        + getLot(id: int): ResponseEntity<Lot>
+    }
 
-' Classes declaration
+    class LotNotFoundAdvice
+    class LotNotFoundException
 
-package "Controllers"{
-    class EmployeeController(){}
-    class EmployeeNotFoundAdvice()
-    class EmployeeNotFoundException()
+    class LotRepository {
+        + findById(id: int): Lot
+    }
 
-    class DepartmentController(){}
-    class DepartmentNotFoundAdvice(){}
-    class DepartmentNotFoundException(){}
+    class LotService {
+        + createLot(nomArticle: string, details: string, enchereDepart: decimal, dateFin: date, heureFin: time, description: string, categorieId: int, imageUrl: string): Lot
+        + findLotById(id: int): Lot
+    }
+
+    class LotEntity {
+        - id: int
+        - nomArticle: string
+        - details: string
+        - enchereDepart: decimal
+        - status: enum
+        - dateFin: date
+        - heureFin: time
+        - description: string
+        - categorieId: int
+        - sousCategorieId: int
+        - imageUrl: string
+    }
+
+    LotNotFoundAdvice ..> LotNotFoundException
+    LotController ..> LotNotFoundException
+    LotController ..> LotRepository
+    LotController ..> LotEntity
+    LotService ..> LotController
+    LotService --> LotRepository
+    LotRepository --> LotEntity
 }
-
-package "Entities"{
-    class Employee()
-    class Department()
-}
-
-package "Repositories"{
-    class EmployeeRepository()
-    class DepartmentRepository()
-    class LoadDatabase()
-}
-
-class PayrollApplication
-
-' Relations
-
-
-
 
 @enduml
