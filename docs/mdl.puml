@@ -3,12 +3,20 @@ entity Lot {
   + id_lot : Long <<PK>>
   nom_article : varchar
   details : varchar
-  satuts : enum
+  statut : enum
   enchere_depart : decimal
   date_heure_fin : date
   description : text
   id_categorie : Long <<FK>>
-  id_sous-categorie : Long <<FK>>
   image_url : varchar
 }
+
+entity Categorie {
+  + id_categorie : Long <<PK>>
+  nom : varchar
+  id_parent : Long <<FK>> // null si catégorie racine
+}
+
+Lot }o--|| Categorie : "appartient à"
+Categorie ||--o{ Categorie : "est issue d'un" (parent)
 @enduml

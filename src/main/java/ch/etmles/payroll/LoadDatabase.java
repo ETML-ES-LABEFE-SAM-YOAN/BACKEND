@@ -16,7 +16,7 @@ import java.util.Date;
 public class LoadDatabase {
     private static final Logger log = LoggerFactory.getLogger(LoadDatabase.class);
 
-    @Bean
+    /*@Bean
     CommandLineRunner initDatabase(LotRepository repository) throws ParseException {
         //Date fixe explicite
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
@@ -27,5 +27,5 @@ public class LoadDatabase {
                             "XVème siècle, état impeccable", "vase.jpg")
             ));
         };
-    }
+    }*/
 }
