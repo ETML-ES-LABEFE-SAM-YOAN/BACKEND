@@ -1,0 +1,50 @@
+@startuml
+top to bottom direction
+
+actor Utilisateur
+actor "Utilisateur identifié" as UtilisateurIdentifie
+actor "Utilisateur non identifié" as UtilisateurNonIdentifie
+actor "Système de gestion des enchères" as SystemeGestionEncheres
+
+package Système {
+    package "Gestion des enchères" {
+        usecase CloturerLot
+        usecase EncherirLot
+        usecase SoumettreLot
+
+    }
+
+    package "Consultation des lots" {
+        usecase DetallerLot
+        usecase AfficherLots
+    }
+
+    package "Gestion des utilisateurs" {
+        usecase Authentifier
+        usecase CreerCompte
+    }
+
+    EncherirLot .> DetallerLot : include
+    DetallerLot .> AfficherLots : include
+}
+
+
+
+Utilisateur --> UtilisateurNonIdentifie
+Utilisateur --> UtilisateurIdentifie
+
+UtilisateurIdentifie --> EncherirLot
+UtilisateurIdentifie --> SoumettreLot
+UtilisateurIdentifie --> DetallerLot
+UtilisateurNonIdentifie --> DetallerLot
+UtilisateurIdentifie --> AfficherLots
+UtilisateurNonIdentifie --> AfficherLots
+UtilisateurNonIdentifie --> Authentifier
+UtilisateurNonIdentifie --> CreerCompte
+
+SystemeGestionEncheres --> CloturerLot : manage
+UtilisateurIdentifie --> CloturerLot
+
+note bottom of CloturerLot : La clôture est déclenchée par\nl'utilisateur identifié ou automatiquement\npar le système
+note bottom of Authentifier : Après une identification réussie,\nl'acteur devient "Utilisateur identifié".
+@enduml
