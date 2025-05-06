@@ -2,43 +2,89 @@
 
 package "Lot" {
     class LotController {
-        + createLot(lot: Lot): ResponseEntity<Lot>
-        + getLot(id: int): ResponseEntity<Lot>
+        + getLot(id: Long): LotEntity
+        + getLotsByCategoriePrincipale(nom: String): ResponseEntity<List<LotEntity>>
+        + getLotsBySousCategorie(nom: String): ResponseEntity<List<LotEntity>>
+    }
+
+    class LotService {
+        + getLot(id: Long): LotEntity
+        + getLotsByCategoriePrincipale(nom: String): List<LotEntity>
+        + getLotsBySousCategorie(nom: String): List<LotEntity>
+    }
+
+    class LotRepository {
+        + findById(id: Long): Optional<LotEntity>
+        + findByCategorieIn(categories: List<CategorieEntity>): List<LotEntity>
+        + findByCategorie(categorie: CategorieEntity): List<LotEntity>
+    }
+
+    class LotEntity {
+        - id_lot: Long
+        - nom_article: String
+        - details: String
+        - statut : Enum
+        - enchere_depart: Double
+        - date_heure_fin: Date
+        - description: String
+        - image: String
+        - categorie: CategorieEntity
     }
 
     class LotNotFoundAdvice
     class LotNotFoundException
 
-    class LotRepository {
-        + findById(id: int): Lot
-    }
-
-    class LotService {
-        + createLot(nomArticle: string, details: string, enchereDepart: decimal, dateFin: date, heureFin: time, description: string, categorieId: int, imageUrl: string): Lot
-        + findLotById(id: int): Lot
-    }
-
-    class LotEntity {
-        - id: int
-        - nomArticle: string
-        - details: string
-        - enchereDepart: decimal
-        - status: enum
-        - dateFin: date
-        - heureFin: time
-        - description: string
-        - categorieId: int
-        - sousCategorieId: int
-        - imageUrl: string
-    }
-
-    LotNotFoundAdvice ..> LotNotFoundException
-    LotController ..> LotNotFoundException
-    LotController ..> LotRepository
-    LotController ..> LotEntity
-    LotService ..> LotController
+    LotController --> LotService
     LotService --> LotRepository
     LotRepository --> LotEntity
+    LotNotFoundAdvice ..> LotNotFoundException
+    LotController ..> LotNotFoundException
 }
+
+package "Categorie" {
+    class CategorieController {
+        + getCategoriesPrincipales(): ResponseEntity<List<CategorieDTO>>
+        + getCategorieTreeByNom(nom: String): ResponseEntity<CategorieDTO>
+    }
+
+    class CategorieService {
+        + getCategoriesPrincipales(): List<CategorieDTO>
+        + getCategorieTreeByNom(nom: String): CategorieDTO
+        + toDto(entity: CategorieEntity): CategorieDTO
+    }
+
+    class CategorieRepository {
+        + findByNom(nom: String): Optional<CategorieEntity>
+        + findByParentIsNull(): List<CategorieEntity>
+    }
+
+    class CategorieEntity {
+        - id_categorie: Long
+        - nom: String
+        - parent: CategorieEntity
+        - sousCategories: List<CategorieEntity>
+    }
+
+    class CategorieDTO {
+        - id_categorie: Long
+        - nom: String
+        - sousCategories: List<CategorieDTO>
+    }
+
+    class CategorieNotFoundAdvice
+    class CategorieNotFoundException
+
+    CategorieController --> CategorieService
+    CategorieService --> CategorieRepository
+    CategorieService ..> CategorieDTO
+    CategorieService ..> CategorieEntity
+    CategorieRepository --> CategorieEntity
+    CategorieEntity "1" --> "0..*" CategorieEntity : parent
+    CategorieDTO o-- "0..*" CategorieDTO : sousCategories
+    CategorieNotFoundAdvice ..> CategorieNotFoundException
+    CategorieController ..> CategorieNotFoundException
+}
+LotEntity }o--|| CategorieEntity : appartient à
+    LotService --> CategorieRepository
 
 @enduml

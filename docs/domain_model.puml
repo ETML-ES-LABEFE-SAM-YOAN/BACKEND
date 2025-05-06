@@ -2,19 +2,25 @@
 
 skinparam classAttributeIconSize 0
 
-class Employee {
-    - id : Long
-    - name : String
-    - email : String [Unique]
-    - department : Department
+class Lot {
+    - id_lot : Long
+    - nomArticle : String
+    - details : String
+    - statut : Enum
+    - enchereDepart : Decimal
+    - dateHeureFin : Date
+    - description : String
+    - id_categorie : Long
+    - imageUrl : String
 }
 
-class Department {
-    - id : Long [Unique]
-    - name : String
-    - employees : List<Employee>
+class Categorie {
+    - id_categorie : Long
+    - nom : String
+    - id_parent : Long
 }
 
-Employee "1" --> "1" Department : "belongs to"
-Department "1" --> "*" Employee : "has"
+Lot "1" --> "0,n" Categorie : "appartient à"
+Categorie "1" --> "0,n" Categorie : "catégorie parente/sous-catégorie"
+
 @enduml
