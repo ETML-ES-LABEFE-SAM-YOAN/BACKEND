@@ -112,28 +112,35 @@ Le serveur démarre par défaut sur le port  `8080`.
 
 ## Structure du projet
 
-main/
-└── java/
-    └── ch.etmles.payroll/
-        ├── Categorie/
-        │   ├── CategorieController
-        │   ├── CategorieDTO
-        │   ├── CategorieEntity
-        │   ├── CategorieNotFoundAdvice
-        │   ├── CategorieNotFoundException
-        │   ├── CategorieRepository
-        │   └── CategorieService
-        ├── Lot/
-        │   ├── LotController
-        │   ├── LotEntity
-        │   ├── LotNotFoundAdvice
-        │   ├── LotRepository
-        │   └── LotService
-        ├── Ressources/
-        │   ├── application.properties
-        │   ├── CREATE-DB-USER.sql
-        │   └── DATASET.sql
-        └── PayrollApllication
+src/
+├── main/
+│   ├── java/
+│   │   └── ch/
+│   │       └── etmles/
+│   │           └── payroll/
+│   │               ├── categorie/
+│   │               │   ├── CategorieController.java
+│   │               │   ├── CategorieDTO.java
+│   │               │   ├── CategorieEntity.java
+│   │               │   ├── CategorieNotFoundAdvice.java
+│   │               │   ├── CategorieNotFoundException.java
+│   │               │   ├── CategorieRepository.java
+│   │               │   └── CategorieService.java
+│   │               │
+│   │               ├── lot/
+│   │               │   ├── LotController.java
+│   │               │   ├── LotEntity.java
+│   │               │   ├── LotNotFoundAdvice.java
+│   │               │   ├── LotRepository.java
+│   │               │   └── LotService.java
+│   │               │
+│   │               └── PayrollApplication.java
+│   │
+│   └── resources/
+│       ├── application.properties
+│       ├── CREATE-DB-USER.sql
+│       └── DATASET.sql
+
 
 
 -   **Categorie/** : gestion des catégories et sous-catégories (contrôleur, entité, DTO, repository, service, gestion des exceptions)
