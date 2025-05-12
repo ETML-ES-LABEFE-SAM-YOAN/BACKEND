@@ -1,38 +1,146 @@
-# Exam training
 
-This repository has been created as a learning tool for getting to grips with spring boot.
+# BackEnd – Vente aux enchères
 
-## First build
+## Description
 
-After cloning this repository, run this command:
+Ce projet constitue le back-end d’une application de gestion de lots pour un site de vente aux enchères.  
+Il permet de visualiser les lots disponibles, de les filtrer par catégorie ou sous-catégorie, et d’obtenir le détail de chaque lot.  
+L’objectif de ce sprint est de permettre la visualisation des lots dans des catégories et sous-catégories, ces dernières étant affichées hiérarchiquement sous chaque catégorie principale.
 
-```
-   mvn clean spring-boot:run
-```
+Ce projet s’adresse principalement à aux professeurs dans le cadre d’un projet
 
-to retrieve the dependencies, compile and run the program for the first time.
+## Statut du projet
 
-```
-  [...]
-  2024-04-09T21:27:27.338+02:00  INFO 21340 --- [payroll] [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-  2024-04-09T21:27:27.517+02:00  WARN 21340 --- [payroll] [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be per
-  formed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-  2024-04-09T21:27:27.752+02:00  INFO 21340 --- [payroll] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path ''
-  2024-04-09T21:27:27.760+02:00  INFO 21340 --- [payroll] [           main] ch.etmles.payroll.PayrollApplication     : Started PayrollApplication in 2.972 seconds (process running for 3.247)
-  2024-04-09T21:27:27.802+02:00  INFO 21340 --- [payroll] [           main] c.e.payroll.Repositories.LoadDatabase    : Preloading Employee{id=1, name='Bilbo Baggins', role='burglar'}
-  2024-04-09T21:27:27.803+02:00  INFO 21340 --- [payroll] [           main] c.e.payroll.Repositories.LoadDatabase    : Preloading Employee{id=2, name='Frodo Baggins', role='thief'}
-  [...]
-```
+-   **En développement**
+    
+-   Fonctionnalités de base d’affichage et de filtrage des lots par catégorie/sous-catégorie implémentées.
+    
 
-## Test using http requests
+## Prérequis
 
-Got the file [project]\src\main\java\ch\etmles\payroll\Controllers\EmployeeController.java
+-   Java 17
+    
+-   Maven
+    
+-   MySQL (testé avec MySQL 8+)
+    
+-   Spring Boot 3.2.4
 
-Before all routes, you will find a curl sample.
 
-## Backlog
+## Installation
 
-Read the different issues that are present. They describe the branch to be used for the starting point and the expected result.
+1.  **Cloner le dépôt GitHub**
+    
+    bash
+    
+    `git clone <url-du-depot> cd  <nom-du-repo>` 
+    
+2.  **Configurer la base de données**
+    
+    -   Créer la base de données  `bidster`  dans MySQL.
+        
+    -   Exécuter le script SQL fourni (`database.sql`) pour créer les tables et insérer un jeu de données.
+        
+3.  **Configurer les variables d’environnement**
+    
+    -   Modifier le fichier  `src/main/resources/application.properties`  avec vos identifiants MySQL.
+        
+4.  **Installer les dépendances et démarrer l’application**
+    
+    bash
+    
+    `mvn clean install mvn spring-boot:run` 
+    
 
-[Issues](https://github.com/ETML-ES-FWBE/exam-training/issues)
+## Utilisation
 
+## Démarrage du serveur
+
+Lancer :
+
+bash
+
+`mvn spring-boot:run` 
+
+Le serveur démarre par défaut sur le port  `8080`.
+
+## Endpoints principaux (exemples de requêtes)
+
+-   **Afficher tous les lots d’une catégorie principale (et sous-catégories) :**
+    
+    
+    `curl http://localhost:8080/lots/categorie-principale/Bijoux` 
+    
+-   **Afficher tous les lots d’une sous-catégorie :**
+    
+    
+    `curl http://localhost:8080/lots/sous-categorie/Bagues` 
+    
+-   **Afficher le détail d’un lot :**
+    
+    
+    `curl http://localhost:8080/lots/1` 
+    
+-   **Afficher toutes les catégories principales (avec sous-catégories) :**
+    
+    
+    `curl http://localhost:8080/categories/principales` 
+    
+-   **Afficher une catégorie et toutes ses sous-catégories :**
+  
+    
+    `curl http://localhost:8080/categories/nom/Bijoux` 
+    
+
+## Tests
+
+-   Les endpoints peuvent être testés avec  **Postman**  ou via les commandes  `curl`  ci-dessus.
+    
+-   (Tests automatisés à ajouter selon l’avancement du projet.)
+    
+
+## Technologies utilisées
+
+-   [Spring Boot 3.2.4](https://spring.io/projects/spring-boot)
+    
+-   [Spring Data JPA](https://spring.io/projects/spring-data-jpa)
+    
+-   [MySQL](https://www.mysql.com/)
+    
+-   [Maven](https://maven.apache.org/)
+    
+
+## Structure du projet
+
+main/
+└── java/
+    └── ch.etmles.payroll/
+        ├── Categorie/
+        │   ├── CategorieController
+        │   ├── CategorieDTO
+        │   ├── CategorieEntity
+        │   ├── CategorieNotFoundAdvice
+        │   ├── CategorieNotFoundException
+        │   ├── CategorieRepository
+        │   └── CategorieService
+        ├── Lot/
+        │   ├── LotController
+        │   ├── LotEntity
+        │   ├── LotNotFoundAdvice
+        │   ├── LotRepository
+        │   └── LotService
+        ├── Ressources/
+        │   ├── application.properties
+        │   ├── CREATE-DB-USER.sql
+        │   └── DATASET.sql
+        └── PayrollApllication
+
+
+-   **Categorie/** : gestion des catégories et sous-catégories (contrôleur, entité, DTO, repository, service, gestion des exceptions)
+    
+-   **Lot/** : gestion des lots (contrôleur, entité, repository, service, gestion des exceptions)
+    
+-   **PayrollApplication.java** : point d’entrée principal de l’application Spring Boot
+    
+
+> Les ressources (configuration, scripts SQL, etc.) sont à placer dans  `src/main/resources/`.
