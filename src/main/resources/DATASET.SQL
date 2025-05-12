@@ -1,0 +1,48 @@
+-- Bijoux
+INSERT INTO lot_entity (id_lot, date_heure_fin, description, details, enchere_depart, image, nom_article, status, id_categorie) VALUES
+(106, '2025-06-25 18:00:00', 'Bague saphir et diamants', 'Or jaune 18 carats, saphir 2ct, 10 diamants', 3200, 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80', 'Bague Saphir', NULL, 10),
+(107, '2025-06-27 19:30:00', 'Bague rubis ancienne', 'Or rose, rubis naturel, époque 1920', 2100, 'https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=400&q=80', 'Bague Rubis Ancienne', NULL, 10),
+(108, '2025-06-29 20:00:00', 'Collier or blanc et topaze', 'Topaze bleue, or blanc, chaîne 45cm', 1500, 'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=400&q=80', 'Collier Topaze', NULL, 11),
+(109, '2025-07-01 17:45:00', 'Collier pendentif émeraude', 'Émeraude 1.5ct, or jaune', 2750, 'https://images.unsplash.com/photo-1512428559087-560fa5ceab42?auto=format&fit=crop&w=400&q=80', 'Collier Émeraude', NULL, 11),
+
+-- Art
+(110, '2025-07-03 19:00:00', 'Peinture abstraite contemporaine', 'Acrylique sur toile, 80x80cm', 2200, 'https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=400&q=80', 'Abstraction Colorée', NULL, 20),
+(111, '2025-07-05 18:30:00', 'Paysage marin signé', 'Huile sur toile, encadrée, 50x70cm', 3400, 'https://images.unsplash.com/photo-1502086223501-7ea6ecd79368?auto=format&fit=crop&w=400&q=80', 'Marine d’Été', NULL, 20),
+(112, '2025-07-07 20:00:00', 'Sculpture en bois exotique', 'Bois de teck, hauteur 60cm', 1800, 'https://images.pexels.com/photos/277253/pexels-photo-277253.jpeg?auto=compress&w=400', 'Danseur Tribal', NULL, 21),
+(113, '2025-07-09 17:00:00', 'Sculpture contemporaine acier', 'Acier poli, socle marbre, 18kg', 4200, 'https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=400&q=80', 'Élan Moderne', NULL, 21),
+
+-- Véhicule
+(114, '2025-07-11 21:00:00', 'Voiture sportive', 'Porsche 911 Carrera 2010, 90 000km', 38000, 'https://images.unsplash.com/photo-1511918984145-48de785d4c4e?auto=format&fit=crop&w=400&q=80', 'Porsche 911', NULL, 30),
+(115, '2025-07-13 15:30:00', 'Citroën 2CV Charleston', 'Année 1983, restaurée, 65 000km', 12000, 'https://cdn.pixabay.com/photo/2017/08/06/22/01/citroen-2599138_1280.jpg', '2CV Charleston', NULL, 30),
+(116, '2025-07-15 14:00:00', 'Moto custom', 'Yamaha XV950, 2018, 8 000km', 6500, 'https://images.unsplash.com/photo-1503736334956-4c8f8e92946d?auto=format&fit=crop&w=400&q=80', 'Yamaha XV950', NULL, 31),
+(117, '2025-07-17 16:45:00', 'Moto de collection', 'BMW R60/2, 1965, état concours', 15500, 'https://cdn.pixabay.com/photo/2016/11/29/09/32/bmw-1868726_1280.jpg', 'BMW R60/2', NULL, 31),
+
+-- Bijoux supplémentaires
+(118, '2025-07-19 18:00:00', 'Bague platine et diamants', 'Platine, 15 diamants, style Art Déco', 4100, 'https://images.pexels.com/photos/1191531/pexels-photo-1191531.jpeg?auto=compress&w=400', 'Bague Platine', NULL, 10),
+(119, '2025-07-21 19:30:00', 'Bague perle noire', 'Or blanc, perle de Tahiti', 2100, 'https://images.pexels.com/photos/1370296/pexels-photo-1370296.jpeg?auto=compress&w=400', 'Bague Perle Noire', NULL, 10),
+(120, '2025-07-23 20:00:00', 'Collier multi-rangs', 'Or jaune, 3 rangs, 60g', 3200, 'https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=400&q=80', 'Collier Multi-rangs', NULL, 11),
+(121, '2025-07-25 17:45:00', 'Collier pendentif diamant', 'Diamant 0.8ct, or rose', 3500, 'https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=400&q=80', 'Collier Diamant', NULL, 11),
+
+-- Art supplémentaires
+(122, '2025-07-27 19:00:00', 'Peinture sur soie', 'Technique mixte, 40x60cm', 1200, 'https://images.unsplash.com/photo-1465101178521-c1a9136a3b99?auto=format&fit=crop&w=400&q=80', 'Fleurs de Soie', NULL, 20),
+(123, '2025-07-29 18:30:00', 'Nature morte classique', 'Huile sur toile, 35x45cm', 1750, 'https://images.unsplash.com/photo-1504196606672-aef5c9cefc92?auto=format&fit=crop&w=400&q=80', 'Pommes et Poires', NULL, 20),
+(124, '2025-07-31 20:00:00', 'Sculpture pierre', 'Pierre de Bourgogne, 30kg', 2900, 'https://images.pexels.com/photos/20787/pexels-photo.jpg?auto=compress&w=400', 'Le Gardien', NULL, 21),
+(125, '2025-08-02 17:00:00', 'Sculpture résine colorée', 'Résine, édition limitée, 2/10', 2100, 'https://images.pexels.com/photos/532220/pexels-photo-532220.jpeg?auto=compress&w=400', 'Pop Art Résine', NULL, 21),
+
+-- Véhicule supplémentaires
+(126, '2025-08-04 21:00:00', 'Voiture électrique', 'Renault Zoé 2022, 12 000km', 16500, 'https://images.unsplash.com/photo-1511391403515-5a34b0caa7b3?auto=format&fit=crop&w=400&q=80', 'Renault Zoé', NULL, 30),
+(127, '2025-08-06 15:30:00', 'Peugeot 205 GTI', 'Année 1990, 110 000km, bon état', 9500, 'https://cdn.pixabay.com/photo/2016/01/19/17/39/peugeot-1149374_1280.jpg', 'Peugeot 205 GTI', NULL, 30),
+(128, '2025-08-08 14:00:00', 'Moto sportive', 'Kawasaki Ninja 650, 2020, 4 500km', 7200, 'https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&w=400&q=80', 'Kawasaki Ninja 650', NULL, 31),
+(129, '2025-08-10 16:45:00', 'Moto ancienne', 'Motobécane AV89, 1962, restaurée', 2100, 'https://cdn.pixabay.com/photo/2017/10/31/10/46/moped-2902195_1280.jpg', 'Motobécane AV89', NULL, 31);
+
+  -- Bijoux
+  (100, '2025-06-10 18:00:00', 'Bague en or blanc sertie de diamants', 'Or blanc 18 carats, 12 diamants', 2500, 'https://images.unsplash.com/photo-1503602642458-232111445657?auto=format&fit=crop&w=400&q=80', 'Bague Diamant', NULL, 10),
+  (101, '2025-06-12 20:00:00', 'Collier perles de culture', 'Perles Akoya, fermoir argent', 1800, 'https://images.unsplash.com/photo-1522312346375-d1a52e2b99b3?auto=format&fit=crop&w=400&q=80', 'Collier Perle', NULL, 11),
+
+  -- Art
+  (102, '2025-06-15 19:00:00', 'Tableau impressionniste signé', 'Huile sur toile, 60x80cm', 5000, 'https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=400&q=80', 'Paysage au Printemps', NULL, 20),
+  (103, '2025-06-18 17:30:00', 'Sculpture bronze moderne', 'Bronze massif, 25kg', 7000, 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80', 'Le Penseur Moderne', NULL, 21),
+
+  -- Véhicule
+  (104, '2025-06-20 21:00:00', 'Voiture de collection', 'Jaguar Type E 1967, restaurée', 45000, 'https://cdn.pixabay.com/photo/2016/11/29/03/53/car-1867180_1280.jpg', 'Jaguar Type E', NULL, 30),
+  (105, '2025-06-22 15:00:00', 'Moto vintage', 'Harley Davidson 1948, état concours', 30000, 'https://images.unsplash.com/photo-1503736334956-4c8f8e92946d?auto=format&fit=crop&w=400&q=80', 'Harley 1948', NULL, 31);
