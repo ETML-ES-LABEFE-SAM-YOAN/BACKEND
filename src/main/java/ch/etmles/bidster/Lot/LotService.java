@@ -47,4 +47,12 @@ public class LotService {
                 .orElseThrow(() -> new LotNotFoundException(id));
     }
 
+    /**
+     * Récupère tous les lots
+     *
+     */
+    public List<LotEntity> getAllLots() {
+        return lotRepository.findAll();
+    }
+
 }

@@ -27,6 +27,16 @@ public class LotController {
     }
 
     /**
+     * Affiche tous les lots.
+     * Exemple curl :
+     * curl http://localhost:8080/lots/all
+     */
+    @GetMapping("/all")
+    public ResponseEntity<List<LotEntity>> getAllLots() {
+        return ResponseEntity.ok(lotService.getAllLots());
+    }
+
+    /**
      * Affiche tous les lots d'une catégorie principale (et de ses sous-catégories), en cherchant par nom.
      * Exemple curl :
      * curl http://localhost:8080/lots/categorie-principale/Bijoux
