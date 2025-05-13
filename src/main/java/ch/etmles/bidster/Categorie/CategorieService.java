@@ -1,4 +1,4 @@
-package ch.etmles.payroll.Categorie;
+package ch.etmles.bidster.Categorie;
 
 import org.springframework.stereotype.Service;
 import java.util.List;

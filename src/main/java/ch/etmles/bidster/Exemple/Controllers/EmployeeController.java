@@ -1,7 +1,7 @@
-package ch.etmles.payroll.Exemple.Controllers;
+package ch.etmles.bidster.Exemple.Controllers;
 
-import ch.etmles.payroll.Exemple.Employee;
-import ch.etmles.payroll.Exemple.Repositories.EmployeeRepository;
+import ch.etmles.bidster.Exemple.Employee;
+import ch.etmles.bidster.Exemple.Repositories.EmployeeRepository;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

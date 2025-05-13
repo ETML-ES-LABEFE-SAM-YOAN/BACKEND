@@ -1,4 +1,4 @@
-package ch.etmles.payroll;
+package ch.etmles.bidster;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
