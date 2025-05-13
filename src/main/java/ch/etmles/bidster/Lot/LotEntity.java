@@ -1,6 +1,6 @@
-package ch.etmles.payroll.Lot;
+package ch.etmles.bidster.Lot;
 
-import ch.etmles.payroll.Categorie.CategorieEntity;
+import ch.etmles.bidster.Categorie.CategorieEntity;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import java.util.Date;

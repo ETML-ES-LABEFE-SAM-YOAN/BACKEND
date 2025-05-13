@@ -1,4 +1,4 @@
-package ch.etmles.payroll.Lot;
+package ch.etmles.bidster.Lot;
 /**
  * Exception personnalisée pour la gestion des erreurs sur les lots non trouvées.
  */

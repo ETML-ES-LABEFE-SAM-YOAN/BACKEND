@@ -1,4 +1,4 @@
-package ch.etmles.payroll.Categorie;
+package ch.etmles.bidster.Categorie;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

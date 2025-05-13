@@ -1,4 +1,4 @@
-package ch.etmles.payroll.Categorie;
+package ch.etmles.bidster.Categorie;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;

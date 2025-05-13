@@ -1,16 +1,8 @@
-package ch.etmles.payroll;
+package ch.etmles.bidster;
 
-import ch.etmles.payroll.Lot.LotEntity;
-import ch.etmles.payroll.Lot.LotRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 @Configuration
 public class LoadDatabase {

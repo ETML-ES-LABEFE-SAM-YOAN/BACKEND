@@ -1,4 +1,4 @@
-package ch.etmles.payroll.Lot;
+package ch.etmles.bidster.Lot;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
