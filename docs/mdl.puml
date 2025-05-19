@@ -4,7 +4,7 @@ entity Lot {
   nom_article : varchar
   details : varchar
   statut : enum
-  enchere_depart : decimal
+  enchere : decimal
   date_heure_fin : date
   description : text
   id_categorie : Long <<FK>>

@@ -24,7 +24,7 @@ package "Lot" {
         - nom_article: String
         - details: String
         - statut : Enum
-        - enchere_depart: Double
+        - enchere: Double
         - date_heure_fin: Date
         - description: String
         - image: String
@@ -34,7 +34,7 @@ package "Lot" {
     class LotDTO {
         - nom_article: String
         - details: String
-        - enchere_depart: Double
+        - enchere: Double
         - date_heure_fin: Date
         - description: String
         - image: String

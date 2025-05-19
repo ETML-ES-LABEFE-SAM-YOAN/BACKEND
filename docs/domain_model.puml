@@ -7,7 +7,7 @@ class Lot {
     - nomArticle : String
     - details : String
     - statut : Enum
-    - enchereDepart : Decimal
+    - enchere : Decimal
     - dateHeureFin : Date
     - description : String
     - id_categorie : Long
