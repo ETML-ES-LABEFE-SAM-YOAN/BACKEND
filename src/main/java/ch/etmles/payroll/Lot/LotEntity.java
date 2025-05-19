@@ -13,7 +13,14 @@ public class LotEntity {
 
     private String nom_article;
     private String details;
-    // Remplace "Enum status" par un vrai type enum si besoin
+    /*Enum Status*/
+    public enum Status {
+        Enchere,
+        Terminer
+    }
+    @Enumerated(EnumType.STRING)
+    private Status status;
+
     private Double enchere_depart;
     private Date date_heure_fin;
     private String description;
@@ -27,9 +34,10 @@ public class LotEntity {
 
     public LotEntity() {}
 
-    public LotEntity(String nom_article, String details, Double enchere_depart, Date date_heure_fin, String description, String image, CategorieEntity categorie) {
+    public LotEntity(String nom_article, String details, Status status, Double enchere_depart, Date date_heure_fin, String description, String image, CategorieEntity categorie) {
         setNom_article(nom_article);
         setDetails(details);
+        setStatus(Status.Enchere);
         setEnchere_depart(enchere_depart);
         setDate_heure_fin(date_heure_fin);
         setDescription(description);
@@ -47,6 +55,13 @@ public class LotEntity {
 
     public String getDetails() { return details; }
     public void setDetails(String details) { this.details = details; }
+
+    public Status getStatus() {
+        return status;
+    }
+    public void setStatus(Status status) {
+        this.status = status;
+    }
 
     public Double getEnchere_depart() { return enchere_depart; }
     public void setEnchere_depart(Double enchere_depart) { this.enchere_depart = enchere_depart; }
@@ -69,6 +84,7 @@ public class LotEntity {
                 "id_lot=" + getId_lot() +
                 ", nom_article='" + getNom_article() + '\'' +
                 ", details='" + getDetails() + '\'' +
+                ", status=" + getStatus() + '\'' +
                 ", enchere_depart=" + getEnchere_depart() +
                 ", date_heure_fin=" + getDate_heure_fin() +
                 ", description='" + getDescription() + '\'' +

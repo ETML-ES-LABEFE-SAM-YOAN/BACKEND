@@ -31,11 +31,22 @@ package "Lot" {
         - categorie: CategorieEntity
     }
 
+    class LotDTO {
+        - nom_article: String
+        - details: String
+        - enchere_depart: Double
+        - date_heure_fin: Date
+        - description: String
+        - image: String
+        - idCategorie: Long
+    }
+
     class LotNotFoundAdvice
     class LotNotFoundException
 
     LotController --> LotService
     LotService --> LotRepository
+    LotService ..> LotDTO
     LotRepository --> LotEntity
     LotNotFoundAdvice ..> LotNotFoundException
     LotController ..> LotNotFoundException

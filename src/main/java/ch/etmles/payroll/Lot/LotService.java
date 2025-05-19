@@ -6,7 +6,6 @@ import ch.etmles.payroll.Categorie.CategorieNotFoundException;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Service pour la logique métier liée aux lots.
@@ -46,6 +45,18 @@ public class LotService {
     public LotEntity getLot(Long id) {
         return lotRepository.findById(id)
                 .orElseThrow(() -> new LotNotFoundException(id));
+    }
+
+    /**
+     * Permet de créer un lot
+     */
+    public LotEntity createLot(LotEntity lot, Long idCategorie) {
+        // Récupère la catégorie associée par son ID
+        CategorieEntity categorie = categorieRepository.findById(idCategorie)
+                .orElseThrow(() -> new CategorieNotFoundException("ID: " + idCategorie));
+        lot.setCategorie(categorie);
+        lot.setStatus(LotEntity.Status.Enchere); // statut par défaut
+        return lotRepository.save(lot);
     }
 
 }
