@@ -52,7 +52,8 @@ public class LotController {
     /**
      * Permet de créer un lot
      * Exemple curl :
-     * curl -X POST "http://localhost:8080/lots" -H "Content-Type: application/json" -d "{\"nom_article\": \"Tableau Moderne\", \"details\": \"Peinture acrylique sur toile, 60x80cm\", \"enchere_depart\": 100.0, \"date_heure_fin\": \"2025-06-01T18:00:00\", \"description\": \"Œuvre unique signée par l'artiste.\", \"image\": \"https://exemple.com/images/tableau.jpg\", \"idCategorie\": 3}"
+     * curl -X POST "http://localhost:8080/lots" -H "Content-Type: application/json" -d "{\"nom_article\": \"Tableau Moderne\", \"details\": \"Peinture acrylique sur toile, 60x80cm\", \"enchere
+     * \": 100.0, \"date_heure_fin\": \"2025-06-01T18:00:00\", \"description\": \"Œuvre unique signée par l'artiste.\", \"image\": \"https://exemple.com/images/tableau.jpg\", \"idCategorie\": 3}"
      */
     @PostMapping
     public ResponseEntity<?> createLot(@RequestBody LotDTO lotDTO) {
@@ -68,7 +69,7 @@ public class LotController {
                 lotDTO.getNom_article(),
                 lotDTO.getDetails(),
                 LotEntity.Status.Enchere,
-                lotDTO.getEnchere_depart(),
+                lotDTO.getEnchere(),
                 lotDTO.getDate_heure_fin(),
                 lotDTO.getDescription(),
                 lotDTO.getImage(),

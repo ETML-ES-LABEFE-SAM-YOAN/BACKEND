@@ -8,17 +8,17 @@ import java.util.Date;
 public class LotDTO {
     private String nom_article;
     private String details;
-    private Double enchere_depart;
+    private Double enchere;
     private Date date_heure_fin;
     private String description;
     private String image;
     private Long idCategorie;
 
-    public LotDTO(String nom_article, String details, Double enchere_depart, Date date_heure_fin,
+    public LotDTO(String nom_article, String details, Double enchere, Date date_heure_fin,
                   String description, String image, Long idCategorie) {
         setNom_article(nom_article);
         setDetails(details);
-        setEnchere_depart(enchere_depart);
+        setEnchere(enchere);
         setDate_heure_fin(date_heure_fin);
         setDescription(description);
         setImage(image);
@@ -32,8 +32,8 @@ public class LotDTO {
     public String getDetails() { return details; }
     public void setDetails(String details) { this.details = details; }
 
-    public Double getEnchere_depart() { return enchere_depart; }
-    public void setEnchere_depart(Double enchere_depart) { this.enchere_depart = enchere_depart; }
+    public Double getEnchere() { return enchere; }
+    public void setEnchere(Double enchere) { this.enchere = enchere; }
 
     public Date getDate_heure_fin() { return date_heure_fin; }
     public void setDate_heure_fin(Date date_heure_fin) { this.date_heure_fin = date_heure_fin; }

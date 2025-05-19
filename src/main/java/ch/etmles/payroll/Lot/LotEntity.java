@@ -21,7 +21,7 @@ public class LotEntity {
     @Enumerated(EnumType.STRING)
     private Status status;
 
-    private Double enchere_depart;
+    private Double enchere;
     private Date date_heure_fin;
     private String description;
 
@@ -34,11 +34,11 @@ public class LotEntity {
 
     public LotEntity() {}
 
-    public LotEntity(String nom_article, String details, Status status, Double enchere_depart, Date date_heure_fin, String description, String image, CategorieEntity categorie) {
+    public LotEntity(String nom_article, String details, Status status, Double enchere, Date date_heure_fin, String description, String image, CategorieEntity categorie) {
         setNom_article(nom_article);
         setDetails(details);
         setStatus(Status.Enchere);
-        setEnchere_depart(enchere_depart);
+        setEnchere(enchere);
         setDate_heure_fin(date_heure_fin);
         setDescription(description);
         setImage(image);
@@ -48,7 +48,6 @@ public class LotEntity {
     // Getters et setters...
 
     public Long getId_lot() { return id_lot; }
-    public void setId_lot(Long id_lot) { this.id_lot = id_lot; }
 
     public String getNom_article() { return nom_article; }
     public void setNom_article(String nom_article) { this.nom_article = nom_article; }
@@ -63,8 +62,8 @@ public class LotEntity {
         this.status = status;
     }
 
-    public Double getEnchere_depart() { return enchere_depart; }
-    public void setEnchere_depart(Double enchere_depart) { this.enchere_depart = enchere_depart; }
+    public Double getEnchere() { return enchere; }
+    public void setEnchere(Double enchere) { this.enchere = enchere; }
 
     public Date getDate_heure_fin() { return date_heure_fin; }
     public void setDate_heure_fin(Date date_heure_fin) { this.date_heure_fin = date_heure_fin; }
@@ -85,7 +84,7 @@ public class LotEntity {
                 ", nom_article='" + getNom_article() + '\'' +
                 ", details='" + getDetails() + '\'' +
                 ", status=" + getStatus() + '\'' +
-                ", enchere_depart=" + getEnchere_depart() +
+                ", enchere=" + getEnchere() +
                 ", date_heure_fin=" + getDate_heure_fin() +
                 ", description='" + getDescription() + '\'' +
                 ", image='" + getImage() + '\'' +
