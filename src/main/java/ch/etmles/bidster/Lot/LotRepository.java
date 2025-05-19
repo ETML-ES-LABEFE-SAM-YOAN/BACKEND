@@ -1,5 +1,5 @@
-package ch.etmles.payroll.Lot;
-import ch.etmles.payroll.Categorie.CategorieEntity;
+package ch.etmles.bidster.Lot;
+import ch.etmles.bidster.Categorie.CategorieEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

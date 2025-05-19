@@ -1,4 +1,4 @@
-package ch.etmles.payroll.Categorie;
+package ch.etmles.bidster.Categorie;
 
 /**
  * Exception personnalisée pour la gestion des erreurs sur les catégories non trouvées.

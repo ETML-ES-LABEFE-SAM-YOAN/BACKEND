@@ -1,4 +1,4 @@
-package ch.etmles.payroll.Lot;
+package ch.etmles.bidster.Lot;
 
 import ch.etmles.payroll.Categorie.CategorieNotFoundException;
 import org.springframework.http.HttpStatus;
@@ -27,6 +27,16 @@ public class LotController {
     @GetMapping("{id}")
     public LotEntity getLot(@PathVariable Long id) {
         return lotService.getLot(id);
+    }
+
+    /**
+     * Affiche tous les lots.
+     * Exemple curl :
+     * curl http://localhost:8080/lots/all
+     */
+    @GetMapping("/all")
+    public ResponseEntity<List<LotEntity>> getAllLots() {
+        return ResponseEntity.ok(lotService.getAllLots());
     }
 
     /**

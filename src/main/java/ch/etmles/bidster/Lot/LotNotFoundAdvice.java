@@ -1,18 +1,17 @@
-package ch.etmles.payroll.Exemple.Controllers;
+package ch.etmles.bidster.Lot;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-@ControllerAdvice
-public class EmployeeNotFoundAdvice {
-
+@RestControllerAdvice
+public class LotNotFoundAdvice {
     @ResponseBody
-    @ExceptionHandler(EmployeeNotFoundException.class)
+    @ExceptionHandler(LotNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    String employeeNotFoundHandler(EmployeeNotFoundException ex){
+    String lotNotFoundHandler(LotNotFoundException ex) {
         return ex.getMessage();
     }
 }
