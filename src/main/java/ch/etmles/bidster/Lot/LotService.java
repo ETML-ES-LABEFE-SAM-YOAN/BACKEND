@@ -1,8 +1,8 @@
-package ch.etmles.payroll.Lot;
+package ch.etmles.bidster.Lot;
 
-import ch.etmles.payroll.Categorie.CategorieEntity;
-import ch.etmles.payroll.Categorie.CategorieRepository;
-import ch.etmles.payroll.Categorie.CategorieNotFoundException;
+import ch.etmles.bidster.Categorie.CategorieEntity;
+import ch.etmles.bidster.Categorie.CategorieRepository;
+import ch.etmles.bidster.Categorie.CategorieNotFoundException;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +18,14 @@ public class LotService {
     public LotService(LotRepository lotRepository, CategorieRepository categorieRepository) {
         this.lotRepository = lotRepository;
         this.categorieRepository = categorieRepository;
+    }
+
+    /**
+     * Récupère tous les lots
+     *
+     */
+    public List<LotEntity> getAllLots() {
+        return lotRepository.findAll();
     }
 
     /**

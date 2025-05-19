@@ -1,6 +1,6 @@
 package ch.etmles.bidster.Lot;
 
-import ch.etmles.payroll.Categorie.CategorieNotFoundException;
+import ch.etmles.bidster.Categorie.CategorieNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

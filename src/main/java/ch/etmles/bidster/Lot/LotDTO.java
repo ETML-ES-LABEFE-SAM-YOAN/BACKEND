@@ -1,4 +1,4 @@
-package ch.etmles.payroll.Lot;
+package ch.etmles.bidster.Lot;
 
 import java.util.Date;
 
