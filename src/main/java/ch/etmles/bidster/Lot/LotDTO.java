@@ -13,9 +13,10 @@ public class LotDTO {
     private String description;
     private String image;
     private Long idCategorie;
+    private Long idUtilisateur; // Ajout du champ
 
     public LotDTO(String nom_article, String details, Double enchere, Date date_heure_fin,
-                  String description, String image, Long idCategorie) {
+                  String description, String image, Long idCategorie, Long idUtilisateur) {
         setNom_article(nom_article);
         setDetails(details);
         setEnchere(enchere);
@@ -23,6 +24,7 @@ public class LotDTO {
         setDescription(description);
         setImage(image);
         setIdCategorie(idCategorie);
+        setIdUtilisateur(idUtilisateur);
     }
 
     // Getters et setters
@@ -46,4 +48,7 @@ public class LotDTO {
 
     public Long getIdCategorie() { return idCategorie; }
     public void setIdCategorie(Long idCategorie) { this.idCategorie = idCategorie; }
+
+    public Long getIdUtilisateur() { return idUtilisateur; }
+    public void setIdUtilisateur(Long idUtilisateur) { this.idUtilisateur = idUtilisateur; }
 }
