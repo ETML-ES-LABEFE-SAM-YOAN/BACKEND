@@ -34,6 +34,14 @@ class Categorie {
     - id_parent : Long
 }
 
+class Enchere {
+    - id_enchere : Long
+    - montant : Decimal
+    - dateEnchere : Date
+    - nom_utilisateur : String
+    - id_lot : Long
+}
+
 Utilisateur "1 " --> "0..n " Lot : "possède"
 Lot "1" --> "0..n" Categorie : "appartient à"
 Categorie "1" --> "0..n" Categorie : "catégorie parente/sous-catégorie"
