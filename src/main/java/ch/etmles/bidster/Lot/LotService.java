@@ -3,6 +3,7 @@ package ch.etmles.bidster.Lot;
 import ch.etmles.bidster.Categorie.CategorieEntity;
 import ch.etmles.bidster.Categorie.CategorieRepository;
 import ch.etmles.bidster.Categorie.CategorieNotFoundException;
+import ch.etmles.bidster.Lot.DTO.LotDetailDTO;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,28 +32,36 @@ public class LotService {
     /**
      * Récupère tous les lots d'une catégorie principale et de ses sous-catégories, en cherchant par nom.
      */
-    public List<LotEntity> getLotsByCategoriePrincipale(String nomCategoriePrincipale) {
+    public List<LotDetailDTO> getLotsByCategoriePrincipale(String nomCategoriePrincipale) {
         CategorieEntity principale = categorieRepository.findByNom(nomCategoriePrincipale)
                 .orElseThrow(() -> new CategorieNotFoundException(nomCategoriePrincipale));
         List<CategorieEntity> sousCategories = principale.getSousCategories();
         List<CategorieEntity> toutesCategories = new ArrayList<>();
         toutesCategories.add(principale);
         toutesCategories.addAll(sousCategories);
-        return lotRepository.findByCategorieIn(toutesCategories);
+        return lotRepository.findByCategorieIn(toutesCategories)
+                .stream()
+                .map(LotDetailDTO::new)
+                .toList();
     }
 
     /**
      * Récupère tous les lots d'une sous-catégorie, en cherchant par nom.
      */
-    public List<LotEntity> getLotsBySousCategorie(String nomSousCategorie) {
+
+    public List<LotDetailDTO> getLotsBySousCategorie(String nomSousCategorie) {
         CategorieEntity sousCategorie = categorieRepository.findByNom(nomSousCategorie)
                 .orElseThrow(() -> new CategorieNotFoundException(nomSousCategorie));
-        return lotRepository.findByCategorie(sousCategorie);
+        return lotRepository.findByCategorie(sousCategorie)
+                .stream()
+                .map(LotDetailDTO::new)
+                .toList();
     }
 
-    public LotEntity getLot(Long id) {
-        return lotRepository.findById(id)
+    public LotDetailDTO getLot(Long id) {
+        LotEntity lot = lotRepository.findById(id)
                 .orElseThrow(() -> new LotNotFoundException(id));
+        return new LotDetailDTO(lot);
     }
 
     /**

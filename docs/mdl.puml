@@ -7,8 +7,23 @@ entity Lot {
   enchere : decimal
   date_heure_fin : date
   description : text
-  id_categorie : Long <<FK>>
   image_url : varchar
+  id_categorie : Long <<FK>>
+  id_utilisateur : Long «FK»
+}
+
+entity Utilisateur {
+    + nom_utilisateur : varchar <<PK>> // identifiant unique
+    nom : varchar
+    prenom : varchar
+    email : varchar
+    mot_de_passe : varchar
+    telephone : varchar
+    rue : varchar
+    npa : varchar
+    localite : varchar
+    solde : decimal
+    date_creation : date
 }
 
 entity Categorie {
@@ -17,6 +32,7 @@ entity Categorie {
   id_parent : Long <<FK>> // null si catégorie racine
 }
 
+Utilisateur --> Lot : "possède 0 ou plusieurs"
 Lot }o--|| Categorie : "appartient à"
 Categorie ||--o{ Categorie : "est issue d'un" (parent)
 @enduml

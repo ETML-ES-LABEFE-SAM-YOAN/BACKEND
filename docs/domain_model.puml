@@ -2,6 +2,20 @@
 
 skinparam classAttributeIconSize 0
 
+class Utilisateur {
+    - nom_utilisateur : String
+    - nom : String
+    - prenom : String
+    - email : String
+    - mot_de_passe : String
+    - telephone : String
+    - rue : String
+    - npa : String
+    - localite : String
+    - solde : Decimal
+    - date_creation : Date
+}
+
 class Lot {
     - id_lot : Long
     - nomArticle : String
@@ -20,7 +34,8 @@ class Categorie {
     - id_parent : Long
 }
 
-Lot "1" --> "0,n" Categorie : "appartient à"
-Categorie "1" --> "0,n" Categorie : "catégorie parente/sous-catégorie"
+Utilisateur "1 " --> "0..n " Lot : "possède"
+Lot "1" --> "0..n" Categorie : "appartient à"
+Categorie "1" --> "0..n" Categorie : "catégorie parente/sous-catégorie"
 
 @enduml

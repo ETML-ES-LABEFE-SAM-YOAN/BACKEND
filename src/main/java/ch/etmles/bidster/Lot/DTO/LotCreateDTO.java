@@ -1,11 +1,11 @@
-package ch.etmles.bidster.Lot;
+package ch.etmles.bidster.Lot.DTO;
 
 import java.util.Date;
 
 /**
  * DTO pour exposer les informations d'un lot.
  */
-public class LotDTO {
+public class LotCreateDTO {
     private String nom_article;
     private String details;
     private Double enchere;
@@ -13,9 +13,10 @@ public class LotDTO {
     private String description;
     private String image;
     private Long idCategorie;
+    private String nomUtilisateur;
 
-    public LotDTO(String nom_article, String details, Double enchere, Date date_heure_fin,
-                  String description, String image, Long idCategorie) {
+    public LotCreateDTO(String nom_article, String details, Double enchere, Date date_heure_fin,
+                        String description, String image, Long idCategorie, String nomUtilisateur) {
         setNom_article(nom_article);
         setDetails(details);
         setEnchere(enchere);
@@ -46,4 +47,5 @@ public class LotDTO {
 
     public Long getIdCategorie() { return idCategorie; }
     public void setIdCategorie(Long idCategorie) { this.idCategorie = idCategorie; }
+
 }

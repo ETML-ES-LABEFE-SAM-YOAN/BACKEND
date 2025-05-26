@@ -1,6 +1,8 @@
 package ch.etmles.bidster.Lot;
 
 import ch.etmles.bidster.Categorie.CategorieEntity;
+import ch.etmles.bidster.Utilisateur.UtilisateurEntity;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import java.util.Date;
@@ -13,6 +15,9 @@ public class LotEntity {
 
     private String nom_article;
     private String details;
+
+
+
     /*Enum Status*/
     public enum Status {
         Enchere,
@@ -32,9 +37,16 @@ public class LotEntity {
 
     private String image;
 
+    // Relation ManyToOne vers UserEntity
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "utilisateur_nom_utilisateur", referencedColumnName = "nom_utilisateur", nullable = false)
+    private UtilisateurEntity utilisateur;
+
+
+
     public LotEntity() {}
 
-    public LotEntity(String nom_article, String details, Status status, Double enchere, Date date_heure_fin, String description, String image, CategorieEntity categorie) {
+    public LotEntity(String nom_article, String details, Status status, Double enchere, Date date_heure_fin, String description, String image, CategorieEntity categorie, UtilisateurEntity utilisateur) {
         setNom_article(nom_article);
         setDetails(details);
         setStatus(Status.Enchere);
@@ -43,6 +55,7 @@ public class LotEntity {
         setDescription(description);
         setImage(image);
         setCategorie(categorie);
+        setUtilisateur(utilisateur);
     }
 
     // Getters et setters...
@@ -77,6 +90,10 @@ public class LotEntity {
     public CategorieEntity getCategorie() { return categorie; }
     public void setCategorie(CategorieEntity categorie) { this.categorie = categorie; }
 
+    public UtilisateurEntity getUtilisateur() { return utilisateur; }
+    public void setUtilisateur(UtilisateurEntity utilisateur) { this.utilisateur = utilisateur; }
+
+
     @Override
     public String toString() {
         return "Lot{" +
@@ -89,6 +106,7 @@ public class LotEntity {
                 ", description='" + getDescription() + '\'' +
                 ", image='" + getImage() + '\'' +
                 ", categorie=" + (getCategorie() != null ? getCategorie().getNom() : null) +
+                ", utilisateur=" + getUtilisateur() +
                 '}';
     }
 }
