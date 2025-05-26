@@ -2,21 +2,24 @@
 
 package "Lot" {
     class LotController {
-        + getLot(id: Long): LotEntity
-        + getLotsByCategoriePrincipale(nom: String): ResponseEntity<List<LotEntity>>
-        + getLotsBySousCategorie(nom: String): ResponseEntity<List<LotEntity>>
+        + getLot(id: Long): LotDetailDTO
+        + getLotsByCategoriePrincipale(nom: String): ResponseEntity<List<LotDetailDTO>>
+        + getLotsBySousCategorie(nom: String): ResponseEntity<List<LotDetailDTO>>
+        + createLot(dto: LotCreateDTO): ResponseEntity<LotDetailDTO>
     }
 
     class LotService {
-        + getLot(id: Long): LotEntity
-        + getLotsByCategoriePrincipale(nom: String): List<LotEntity>
-        + getLotsBySousCategorie(nom: String): List<LotEntity>
+        + getLot(id: Long): LotDetailDTO
+        + getLotsByCategoriePrincipale(nom: String): List<LotDetailDTO>
+        + getLotsBySousCategorie(nom: String): List<LotDetailDTO>
+        + createLot(dto: LotCreateDTO): LotDetailDTO
     }
 
     class LotRepository {
         + findById(id: Long): Optional<LotEntity>
         + findByCategorieIn(categories: List<CategorieEntity>): List<LotEntity>
         + findByCategorie(categorie: CategorieEntity): List<LotEntity>
+        + save(lot: LotEntity): LotEntity
     }
 
     class LotEntity {
@@ -29,9 +32,10 @@ package "Lot" {
         - description: String
         - image: String
         - categorie: CategorieEntity
+        - utilisateur: UtilisateurEntity
     }
 
-    class LotDTO {
+    class LotCreateDTO {
         - nom_article: String
         - details: String
         - enchere: Double
@@ -39,6 +43,18 @@ package "Lot" {
         - description: String
         - image: String
         - idCategorie: Long
+        - nomUtilisateur: String
+    }
+
+    class LotDetailDTO {
+        - id: Long
+        - nom_article: String
+        - details: String
+        - enchere: Double
+        - date_heure_fin: Date
+        - description: String
+        - image: String
+        - utilisateur: String
     }
 
     class LotNotFoundAdvice
@@ -46,7 +62,8 @@ package "Lot" {
 
     LotController --> LotService
     LotService --> LotRepository
-    LotService ..> LotDTO
+    LotService ..> LotCreateDTO
+    LotService ..> LotDetailDTO
     LotRepository --> LotEntity
     LotNotFoundAdvice ..> LotNotFoundException
     LotController ..> LotNotFoundException
@@ -151,7 +168,69 @@ package "Categorie" {
     CategorieNotFoundAdvice ..> CategorieNotFoundException
     CategorieController ..> CategorieNotFoundException
 }
+
+package "Enchere" {
+        class EnchereDto {
+            - lotId: Long
+            - montant: Double
+            - nomUtilisateur: String
+        }
+        class EnchereResponseDto {
+            - id: Long
+            - montant: Double
+            - dateEnchere: Date
+            - nomUtilisateur: String
+            - lotId: Long
+        }
+
+    class EnchereController {
+        + placerEnchere(dto: EnchereDto): ResponseEntity<EnchereResponseDto>
+        + getEncheresPourLot(lotId: Long): ResponseEntity<List<EnchereResponseDto>>
+        + getMeilleureEncherePourLot(lotId: Long): ResponseEntity<EnchereResponseDto>
+        + getEncheresPourUtilisateur(nomUtilisateur: String): ResponseEntity<List<EnchereResponseDto>>
+    }
+
+    class EnchereService {
+        + placerEnchere(lotId: Long, nomUtilisateur: String, montant: Double): EnchereEntity
+        + getEncheresPourLot(lotId: Long): List<EnchereEntity>
+        + getMeilleureEncherePourLot(lotId: Long): EnchereEntity
+        + getEncheresPourUtilisateur(nomUtilisateur: String): List<EnchereEntity>
+        + toDto(entity: EnchereEntity): EnchereResponseDto
+    }
+
+    class EnchereRepository {
+        + findByLotOrderByMontantDesc(lot: LotEntity): List<EnchereEntity>
+        + findTopByLotOrderByMontantDesc(lot: LotEntity): Optional<EnchereEntity>
+        + findByUtilisateurOrderByDateEnchereDesc(utilisateur: UtilisateurEntity): List<EnchereEntity>
+    }
+
+    class EnchereEntity {
+        - id: Long
+        - utilisateur: UtilisateurEntity
+        - lot: LotEntity
+        - montant: Double
+        - dateEnchere: Date
+    }
+
+    class EnchereMontantInvalideException
+    class SoldeInsuffisantException
+    class GlobalExceptionHandlerEnchere
+
+    EnchereController --> EnchereService
+    EnchereService --> EnchereRepository
+    EnchereService ..> EnchereDto
+    EnchereService ..> EnchereResponseDto
+    EnchereRepository --> EnchereEntity
+    EnchereEntity --> LotEntity
+    EnchereEntity --> UtilisateurEntity
+    GlobalExceptionHandlerEnchere ..> EnchereMontantInvalideException
+    GlobalExceptionHandlerEnchere ..> SoldeInsuffisantException
+    GlobalExceptionHandlerEnchere ..> EnchereController
+
+}
+
 LotEntity }o--|| CategorieEntity : appartient à
-    LotService --> CategorieRepository
+LotEntity --> UtilisateurEntity : "créé par"
+LotService --> CategorieRepository
 
 @enduml
