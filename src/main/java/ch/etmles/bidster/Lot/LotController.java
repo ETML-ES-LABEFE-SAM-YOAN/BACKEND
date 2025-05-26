@@ -53,8 +53,10 @@ public class LotController {
      * curl http://localhost:8080/lots/all
      */
     @GetMapping("/all")
-    public ResponseEntity<List<LotEntity>> getAllLots() {
-        return ResponseEntity.ok(lotService.getAllLots());
+    public ResponseEntity<List<LotDetailDTO>> getAllLots() {
+        return ResponseEntity.ok(
+                lotService.getAllLots().stream().map(LotDetailDTO::new).toList()
+        );
     }
 
     /**
