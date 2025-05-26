@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>ch.etml-es</groupId>
-	<artifactId>payroll</artifactId>
+	<artifactId>bidster</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>payroll</name>
 	<description>Training depot for Spring</description>
