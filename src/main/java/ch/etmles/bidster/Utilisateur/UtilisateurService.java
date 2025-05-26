@@ -17,6 +17,10 @@ public class UtilisateurService {
         if (utilisateurRepository.findByNomUtilisateur(dto.nomUtilisateur).isPresent()) {
             throw new UserAlreadyExistsException("Nom d'utilisateur déjà utilisé !");
         }
+        if (utilisateurRepository.findByEmail(dto.email).isPresent()) {
+            throw new UserAlreadyExistsException("Cette adresse email est déjà utilisée. Veuillez en utiliser une autre ou vous connecter.");
+        }
+
         validerMotDePasse(dto.motDePasse);
 
         UtilisateurEntity utilisateur = new UtilisateurEntity();
