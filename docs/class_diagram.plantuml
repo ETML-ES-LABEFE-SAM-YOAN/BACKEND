@@ -52,6 +52,62 @@ package "Lot" {
     LotController ..> LotNotFoundException
 }
 
+package "Utilisateur" {
+    class UtilisateurController {
+        + creerUtilisateur(dto: UtilisateurDTO): ResponseEntity<UtilisateurEntity>
+    }
+
+    class UtilisateurService {
+        + creerUtilisateur(dto: UtilisateurDTO): UtilisateurEntity
+    }
+
+    class UtilisateurRepository {
+        + findByNomUtilisateur(nom: String): Optional<UtilisateurEntity>
+        + findByEmail(email: String): Optional<UtilisateurEntity>
+        + save(entity: UtilisateurEntity): UtilisateurEntity
+    }
+
+    class UtilisateurEntity {
+        - nomUtilisateur: String
+        - nom: String
+        - prenom: String
+        - email: String
+        - motDePasse: String
+        - telephone: String
+        - rue: String
+        - npa: String
+        - localite: String
+        - solde: Double
+        - dateCreation: Date
+    }
+
+    class UtilisateurDTO {
+        - nomUtilisateur: String
+        - nom: String
+        - prenom: String
+        - email: String
+        - motDePasse: String
+        - telephone: String
+        - rue: String
+        - npa: String
+        - localite: String
+    }
+
+    class GlobalExceptionHandler
+    class PasswordInvalidException
+    class UserAlreadyExistsException
+    class UtilisateurNotFoundException
+
+    UtilisateurController --> UtilisateurService
+    UtilisateurService --> UtilisateurRepository
+    UtilisateurService ..> UtilisateurDTO
+    UtilisateurRepository --> UtilisateurEntity
+    GlobalExceptionHandler ..> UtilisateurController
+    PasswordInvalidException ..> GlobalExceptionHandler
+    UserAlreadyExistsException ..> GlobalExceptionHandler
+    UtilisateurNotFoundException ..> GlobalExceptionHandler
+}
+
 package "Categorie" {
     class CategorieController {
         + getCategoriesPrincipales(): ResponseEntity<List<CategorieDTO>>
