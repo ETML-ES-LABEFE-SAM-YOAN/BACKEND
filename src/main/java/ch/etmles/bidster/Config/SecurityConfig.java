@@ -24,20 +24,29 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
+                        // Endpoints publics (accessibles à tous)
                         .requestMatchers(
                                 "/utilisateurs/creer",
                                 "/lots/sous-categorie/**",
                                 "/lots/categorie-principale/**",
                                 "/lots/all",
                                 "/lots/{id:[0-9]+}",
-                                "/categories/principales"
+                                "/categories/principales",
+                                "/encheres/lot/*/meilleure",
+                                "/encheres/lot/*"
                         ).permitAll()
+                        // Endpoints enchères réservés aux utilisateurs connectés
+                        .requestMatchers("/encheres/placer").authenticated()
+                        .requestMatchers("/encheres/utilisateur/**").authenticated()
+                        // Création d’un lot réservée aux connectés
                         .requestMatchers(org.springframework.http.HttpMethod.POST, "/lots").authenticated()
+                        // Tout le reste est public
                         .anyRequest().permitAll()
                 )
                 .httpBasic();
         return http.build();
     }
+
 
 
     @Bean

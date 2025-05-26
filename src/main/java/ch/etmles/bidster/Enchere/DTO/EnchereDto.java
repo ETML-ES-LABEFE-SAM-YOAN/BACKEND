@@ -1,4 +1,4 @@
-package ch.etmles.bidster.Enchere;
+package ch.etmles.bidster.Enchere.DTO;
 
 public class EnchereDto {
     private Long lotId;
