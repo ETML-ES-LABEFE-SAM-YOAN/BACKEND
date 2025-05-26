@@ -42,8 +42,11 @@ class Enchere {
     - id_lot : Long
 }
 
-Utilisateur "1 " --> "0..n " Lot : "possède"
-Lot "1" --> "0..n" Categorie : "appartient à"
-Categorie "1" --> "0..n" Categorie : "catégorie parente/sous-catégorie"
+' Relations principales
+Utilisateur "1" --o{ Lot : "possède/crée"
+Lot "1" --o{ Enchere : "reçoit"
+Utilisateur "1" --o{ Enchere : "enchérit"
+Lot }o--|| Categorie : "appartient à"
+Categorie "1" --o{ Categorie : "catégorie parente/sous-catégorie"
 
 @enduml
