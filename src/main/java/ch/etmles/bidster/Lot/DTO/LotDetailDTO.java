@@ -34,16 +34,32 @@ public class LotDetailDTO {
         this.id = id;
     }
 
-    public String getUtilisateur() {
-        return utilisateur;
+    public String getNom_article() {
+        return nom_article;
     }
 
-    public void setUtilisateur(String utilisateur) {
-        this.utilisateur = utilisateur;
+    public void setNom_article(String nom_article) {
+        this.nom_article = nom_article;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public String getDetails() {
+        return details;
+    }
+
+    public void setDetails(String details) {
+        this.details = details;
+    }
+
+    public Double getEnchere() {
+        return enchere;
+    }
+
+    public void setEnchere(Double enchere) {
+        this.enchere = enchere;
+    }
+
+    public Date getDate_heure_fin() {
+        return date_heure_fin;
     }
 
     public void setDate_heure_fin(Date date_heure_fin) {
@@ -58,16 +74,19 @@ public class LotDetailDTO {
         this.description = description;
     }
 
-    public void setNom_article(String nom_article) {
-        this.nom_article = nom_article;
+    public String getImage() {
+        return image;
     }
 
-
-    public void setEnchere(Double enchere) {
-        this.enchere = enchere;
+    public void setImage(String image) {
+        this.image = image;
     }
 
-    public void setDetails(String details) {
-        this.details = details;
+    public String getUtilisateur() {
+        return utilisateur;
+    }
+
+    public void setUtilisateur(String utilisateur) {
+        this.utilisateur = utilisateur;
     }
 }

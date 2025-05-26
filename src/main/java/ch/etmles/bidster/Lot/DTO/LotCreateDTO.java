@@ -24,6 +24,7 @@ public class LotCreateDTO {
         setDescription(description);
         setImage(image);
         setIdCategorie(idCategorie);
+        setNomUtilisateur(nomUtilisateur);
     }
 
     // Getters et setters
@@ -48,4 +49,11 @@ public class LotCreateDTO {
     public Long getIdCategorie() { return idCategorie; }
     public void setIdCategorie(Long idCategorie) { this.idCategorie = idCategorie; }
 
+    public String getNomUtilisateur() {
+        return nomUtilisateur;
+    }
+
+    public void setNomUtilisateur(String nomUtilisateur) {
+        this.nomUtilisateur = nomUtilisateur;
+    }
 }
