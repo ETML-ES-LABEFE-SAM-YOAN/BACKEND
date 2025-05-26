@@ -15,6 +15,9 @@ public class LotEntity {
 
     private String nom_article;
     private String details;
+
+
+
     /*Enum Status*/
     public enum Status {
         Enchere,
@@ -36,9 +39,9 @@ public class LotEntity {
 
     // Relation ManyToOne vers UserEntity
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "utilisateur_id", nullable = false)
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @JoinColumn(name = "utilisateur_nom_utilisateur", referencedColumnName = "nom_utilisateur", nullable = false)
     private UtilisateurEntity utilisateur;
+
 
 
     public LotEntity() {}
@@ -103,6 +106,7 @@ public class LotEntity {
                 ", description='" + getDescription() + '\'' +
                 ", image='" + getImage() + '\'' +
                 ", categorie=" + (getCategorie() != null ? getCategorie().getNom() : null) +
+                ", utilisateur=" + getUtilisateur() +
                 '}';
     }
 }

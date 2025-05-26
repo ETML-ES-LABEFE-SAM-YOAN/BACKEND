@@ -10,13 +10,10 @@ import java.util.List;
 @Entity
 public class UtilisateurEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
     @Column(name = "nom_utilisateur", nullable = false, unique = true)
     private String nomUtilisateur;
-    private String nom;
 
+    private String nom;
     private String prenom;
 
     @Column(name = "email", nullable = false, unique = true)
@@ -26,13 +23,9 @@ public class UtilisateurEntity {
     private String motDePasse;
 
     private String telephone;
-
     private String rue;
-
     private String npa;
-
     private String localite;
-
     private Double solde;
 
     @Column(name = "date_creation")
@@ -45,8 +38,7 @@ public class UtilisateurEntity {
     */
     // Constructor
 
-    public UtilisateurEntity(Long id, String nomUtilisateur, String nom, String motDePasse, String prenom, String email, String npa, Double solde, String rue, String telephone, String localite /*List<LotEntity> lots*/) {
-        setId(id);
+    public UtilisateurEntity(String nomUtilisateur, String nom, String motDePasse, String prenom, String email, String npa, Double solde, String rue, String telephone, String localite /*List<LotEntity> lots*/) {
         setNomUtilisateur(nomUtilisateur);
         setNom(nom);
         setMotDePasse(motDePasse);
@@ -67,13 +59,6 @@ public class UtilisateurEntity {
 
 
     // Getter & Setter
-    public void setId(Long id) {
-        this.id = id;
-    }
-    public Long getId() {
-        return id;
-    }
-
     public void setNomUtilisateur(String nomUtilisateur) {
         this.nomUtilisateur = nomUtilisateur;
     }

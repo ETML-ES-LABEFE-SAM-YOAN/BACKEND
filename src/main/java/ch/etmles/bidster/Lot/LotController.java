@@ -3,10 +3,13 @@ package ch.etmles.bidster.Lot;
 import ch.etmles.bidster.Categorie.CategorieEntity;
 import ch.etmles.bidster.Categorie.CategorieNotFoundException;
 import ch.etmles.bidster.Categorie.CategorieRepository;
+import ch.etmles.bidster.Lot.DTO.LotCreateDTO;
+import ch.etmles.bidster.Lot.DTO.LotDetailDTO;
 import ch.etmles.bidster.Utilisateur.UtilisateurEntity;
 import ch.etmles.bidster.Utilisateur.UtilisateurRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Map;
@@ -35,10 +38,14 @@ public class LotController {
      * Exemple curl :
      * curl http://localhost:8080/lots/{id}
      */
+
     @GetMapping("{id}")
-    public LotEntity getLot(@PathVariable Long id) {
+    public LotDetailDTO getLot(@PathVariable Long id) {
         return lotService.getLot(id);
     }
+
+
+
 
     /**
      * Affiche tous les lots.
@@ -56,7 +63,7 @@ public class LotController {
      * curl http://localhost:8080/lots/categorie-principale/Bijoux
      */
     @GetMapping("/categorie-principale/{nom}")
-    public ResponseEntity<List<LotEntity>> getLotsByCategoriePrincipale(@PathVariable String nom) {
+    public ResponseEntity<List<LotDetailDTO>> getLotsByCategoriePrincipale(@PathVariable String nom) {
         return ResponseEntity.ok(lotService.getLotsByCategoriePrincipale(nom));
     }
 
@@ -66,7 +73,7 @@ public class LotController {
      * curl http://localhost:8080/lots/sous-categorie/Bagues
      */
     @GetMapping("/sous-categorie/{nom}")
-    public ResponseEntity<List<LotEntity>> getLotsBySousCategorie(@PathVariable String nom) {
+    public ResponseEntity<List<LotDetailDTO>> getLotsBySousCategorie(@PathVariable String nom) {
         return ResponseEntity.ok(lotService.getLotsBySousCategorie(nom));
     }
 
@@ -77,42 +84,42 @@ public class LotController {
      * \": 100.0, \"date_heure_fin\": \"2025-06-01T18:00:00\", \"description\": \"Œuvre unique signée par l'artiste.\", \"image\": \"https://exemple.com/images/tableau.jpg\", \"idCategorie\": 3}"
      */
     @PostMapping
-    public ResponseEntity<?> createLot(@RequestBody LotDTO lotDTO) {
-        if (lotDTO.getIdCategorie() == null) {
+    public ResponseEntity<?> createLot(@RequestBody LotCreateDTO lotcreateDTO, Authentication authentication) {
+        if (lotcreateDTO.getIdCategorie() == null) {
             return ResponseEntity
                     .badRequest()
                     .body(Map.of("error", "La catégorie est obligatoire"));
         }
-        if (lotDTO.getIdUtilisateur() == null) {
-            return ResponseEntity
-                    .badRequest()
-                    .body(Map.of("error", "L'utilisateur est obligatoire"));
-        }
 
         try {
             // Récupération de la catégorie
-            CategorieEntity categorie = categorieRepository.findById(lotDTO.getIdCategorie())
-                    .orElseThrow(() -> new CategorieNotFoundException(String.valueOf(lotDTO.getIdCategorie())));
+            CategorieEntity categorie = categorieRepository.findById(lotcreateDTO.getIdCategorie())
+                    .orElseThrow(() -> new CategorieNotFoundException(String.valueOf(lotcreateDTO.getIdCategorie())));
 
-            // Récupération de l'utilisateur
-            UtilisateurEntity utilisateur = utilisateurRepository.findById(lotDTO.getIdUtilisateur())
+            // Récupération du nom d'utilisateur connecté
+            String nomUtilisateur = authentication.getName();
+
+            // Récupération de l'utilisateur en base
+            UtilisateurEntity utilisateur = utilisateurRepository.findByNomUtilisateur(nomUtilisateur)
                     .orElseThrow(() -> new RuntimeException("Utilisateur non trouvé"));
 
             // Création de l'entité Lot
             LotEntity lot = new LotEntity(
-                    lotDTO.getNom_article(),
-                    lotDTO.getDetails(),
+                    lotcreateDTO.getNom_article(),
+                    lotcreateDTO.getDetails(),
                     LotEntity.Status.Enchere,
-                    lotDTO.getEnchere(),
-                    lotDTO.getDate_heure_fin(),
-                    lotDTO.getDescription(),
-                    lotDTO.getImage(),
+                    lotcreateDTO.getEnchere(),
+                    lotcreateDTO.getDate_heure_fin(),
+                    lotcreateDTO.getDescription(),
+                    lotcreateDTO.getImage(),
                     categorie,
                     utilisateur
             );
 
-            LotEntity savedLot = lotService.createLot(lot, lotDTO.getIdCategorie());
-            return ResponseEntity.ok(savedLot);
+            LotEntity savedLot = lotService.createLot(lot, lotcreateDTO.getIdCategorie());
+
+            // Retourne un DTO propre, pas l'entité JPA complète
+            return ResponseEntity.ok(new LotDetailDTO(savedLot));
 
         } catch (CategorieNotFoundException e) {
             return ResponseEntity
@@ -128,5 +135,6 @@ public class LotController {
                     .body(Map.of("error", "Une erreur interne est survenue"));
         }
     }
+
 }
 
