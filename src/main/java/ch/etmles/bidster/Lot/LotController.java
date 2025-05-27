@@ -18,7 +18,7 @@ import java.util.Map;
  * Contrôleur REST pour les lots.
  */
 @RestController
-@RequestMapping("/lots")
+@RequestMapping("v1/lots")
 public class LotController {
     private final LotService lotService;
     private final CategorieRepository categorieRepository;
@@ -36,7 +36,7 @@ public class LotController {
     /**
      * Affiche un lot
      * Exemple curl :
-     * curl http://localhost:8080/lots/{id}
+     * curl http://localhost:8080/v1/lots/{id}
      */
 
     @GetMapping("{id}")
@@ -44,13 +44,10 @@ public class LotController {
         return lotService.getLot(id);
     }
 
-
-
-
     /**
      * Affiche tous les lots.
      * Exemple curl :
-     * curl http://localhost:8080/lots/all
+     * curl http://localhost:8080/v1/lots/all
      */
     @GetMapping("/all")
     public ResponseEntity<List<LotDetailDTO>> getAllLots() {
@@ -62,7 +59,7 @@ public class LotController {
     /**
      * Affiche tous les lots d'une catégorie principale (et de ses sous-catégories), en cherchant par nom.
      * Exemple curl :
-     * curl http://localhost:8080/lots/categorie-principale/Bijoux
+     * curl http://localhost:8080/v1/lots/categorie-principale/Bijoux
      */
     @GetMapping("/categorie-principale/{nom}")
     public ResponseEntity<List<LotDetailDTO>> getLotsByCategoriePrincipale(@PathVariable String nom) {
@@ -72,7 +69,7 @@ public class LotController {
     /**
      * Affiche tous les lots d'une sous-catégorie, en cherchant par nom.
      * Exemple curl :
-     * curl http://localhost:8080/lots/sous-categorie/Bagues
+     * curl http://localhost:8080/v1/lots/sous-categorie/Bagues
      */
     @GetMapping("/sous-categorie/{nom}")
     public ResponseEntity<List<LotDetailDTO>> getLotsBySousCategorie(@PathVariable String nom) {
@@ -82,7 +79,7 @@ public class LotController {
     /**
      * Permet de créer un lot
      * Exemple curl :
-     * curl -X POST "http://localhost:8080/lots" -H "Content-Type: application/json" -d "{\"nom_article\": \"Tableau Moderne\", \"details\": \"Peinture acrylique sur toile, 60x80cm\", \"enchere
+     * curl -X POST "http://localhost:8080/v1/lots" -H "Content-Type: application/json" -d "{\"nom_article\": \"Tableau Moderne\", \"details\": \"Peinture acrylique sur toile, 60x80cm\", \"enchere
      * \": 100.0, \"date_heure_fin\": \"2025-06-01T18:00:00\", \"description\": \"Œuvre unique signée par l'artiste.\", \"image\": \"https://exemple.com/images/tableau.jpg\", \"idCategorie\": 3}"
      */
     @PostMapping
