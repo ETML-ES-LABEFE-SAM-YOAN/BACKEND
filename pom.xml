@@ -11,7 +11,7 @@
 	<groupId>ch.etml-es</groupId>
 	<artifactId>bidster</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>payroll</name>
+	<name>bidster</name>
 	<description>Training depot for Spring</description>
 	<properties>
 		<java.version>17</java.version>
