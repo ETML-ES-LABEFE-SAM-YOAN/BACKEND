@@ -8,7 +8,7 @@ import java.util.List;
  * Contrôleur REST pour les catégories.
  */
 @RestController
-@RequestMapping("/categories")
+@RequestMapping("v1/categories")
 public class CategorieController {
     private final CategorieService categorieService;
 
@@ -19,7 +19,7 @@ public class CategorieController {
     /**
      * Affiche toutes les catégories principales (parent == null), avec leurs sous-catégories.
      * Exemple curl :
-     * curl http://localhost:8080/categories/principales
+     * curl http://localhost:8080/v1/categories/principales
      */
     @GetMapping("/principales")
     public ResponseEntity<List<CategorieDTO>> getCategoriesPrincipales() {
