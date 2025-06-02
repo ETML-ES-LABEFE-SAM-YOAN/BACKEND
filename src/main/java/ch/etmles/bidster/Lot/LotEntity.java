@@ -26,7 +26,7 @@ public class LotEntity {
     @Enumerated(EnumType.STRING)
     private Status status;
 
-    private Double enchere;
+    private Double enchere_depart;
     private Date date_heure_fin;
     private String description;
 
@@ -75,8 +75,8 @@ public class LotEntity {
         this.status = status;
     }
 
-    public Double getEnchere() { return enchere; }
-    public void setEnchere(Double enchere) { this.enchere = enchere; }
+    public Double getEnchere() { return enchere_depart; }
+    public void setEnchere(Double enchere) { this.enchere_depart = enchere; }
 
     public Date getDate_heure_fin() { return date_heure_fin; }
     public void setDate_heure_fin(Date date_heure_fin) { this.date_heure_fin = date_heure_fin; }
