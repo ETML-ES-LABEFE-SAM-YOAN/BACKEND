@@ -97,26 +97,58 @@ Le serveur démarre par défaut sur le port 8080.
 
 Le projet est organisé comme suit :
 
-src
-├── main
-│ ├── java
-│ │ └── ch
-│ │ └── etmles
-│ │ └── bidster
-│ │ ├── Categorie // gestion des catégories et sous-catégories
-│ │ ├── Config // configuration spécifique de l'application
-│ │ ├── Enchere // gestion des enchères
-│ │ ├── Lot // gestion des lots
-│ │ ├── Utilisateur // gestion des utilisateurs
-│ │ ├── BidsterApplication// point d'entrée principal de l'application Spring Boot
-│ │ └── LoadDatabase // initialisation ou chargement de la base de données
-│ │ └── payroll.Exemple // exemple ou ancien module (à adapter selon usage)
-│ └── resources
-│ ├── application.properties // configuration de l'application (base de données, etc.)
-│ ├── CREATE-DB-TABLES-USER.sql // script SQL pour création des tables utilisateurs
-│ └── DATASET.SQL // script SQL pour initialiser la base de données
-└── test
-
+```
+.
+├── C:.
+├── │   .env
+├── │   .gitignore
+├── │   mvnw
+├── │   mvnw.cmd
+├── │   pom.xml
+├── │   README.md
+├── │
+├── ├───docs
+├── │       class_diagram.plantuml
+├── │       diagram_use_case.plantuml
+├── │       domain_model.puml
+├── │       mdl.puml
+├── │
+├── ├───src
+├── │   ├───main
+├── │   │   ├───java
+├── │   │   │   └───ch
+├── │   │   │       └───etmles
+├── │   │   │           └───bidster
+├── │   │   │               │   BidsterApplication.java
+├── │   │   │               │   LoadDatabase.java
+├── │   │   │               │
+├── │   │   │               ├───Categorie
+├── │   │   │               │
+├── │   │   │               ├───Config
+├── │   │   │               │       SecurityConfig.java
+├── │   │   │               │
+├── │   │   │               ├───Enchere
+├── │   │   │               │   │
+├── │   │   │               │   └───DTO
+├── │   │   │               │
+├── │   │   │               ├───Lot
+├── │   │   │               │   │
+├── │   │   │               │   └───DTO
+├── │   │   │               │
+├── │   │   │               └───Utilisateur
+├── │   │   │
+├── │   │   └───resources
+├── │   │           application.properties
+├── │   │           CREATE-DB-TABLES-USER.sql
+├── │   │           DATASET.SQL
+├── │   │
+├── │   └───test
+├── │       └───java
+├── │           └───ch
+├── │               └───etmles
+├── │                   └───bidster
+└── │                           BidsterApplicationTests.java
+```
 
 **Détails des principaux dossiers :**
 
