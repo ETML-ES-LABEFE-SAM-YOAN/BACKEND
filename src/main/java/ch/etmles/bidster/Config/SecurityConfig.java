@@ -32,7 +32,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         // Endpoints publics (accessibles à tous)
                         .requestMatchers(
-                                "/utilisateurs/creer",
+                                "/utilisateurs",
                                 "/lots/sous-categorie/**",
                                 "/lots/categorie-principale/**",
                                 "/lots/all",

@@ -11,7 +11,7 @@ public class UtilisateurController {
     @Autowired
     private UtilisateurService utilisateurService;
 
-    @PostMapping("/creer")
+    @PostMapping
     public ResponseEntity<UtilisateurEntity> creerUtilisateur(@RequestBody UtilisateurDTO dto) {
         UtilisateurEntity utilisateurCree = utilisateurService.creerUtilisateur(dto);
         return ResponseEntity.ok(utilisateurCree);
