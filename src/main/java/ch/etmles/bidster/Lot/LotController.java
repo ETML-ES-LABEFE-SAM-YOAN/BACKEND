@@ -102,6 +102,10 @@ public class LotController {
             UtilisateurEntity utilisateur = utilisateurRepository.findByNomUtilisateur(nomUtilisateur)
                     .orElseThrow(() -> new RuntimeException("Utilisateur non trouvé"));
 
+            if (authentication == null || !authentication.isAuthenticated()) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                        .body(Map.of("error", "Utilisateur non authentifié"));
+            }
             // Création de l'entité Lot
             LotEntity lot = new LotEntity(
                     lotcreateDTO.getNom_article(),
