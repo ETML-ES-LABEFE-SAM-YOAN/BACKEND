@@ -35,6 +35,13 @@ public class UtilisateurController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                     .body(Map.of("error", "Utilisateur non authentifié"));
         }
+
+        String usernameAuth = authentication.getName();
+        if (!usernameAuth.equals(nomUtilisateur)) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body(Map.of("error", "Accès interdit à ce compte"));
+        }
+
         UtilisateurInfoDTO dto = utilisateurService.getUtilisateurParNom(nomUtilisateur);
         if (dto != null) {
             return ResponseEntity.ok(dto);
@@ -42,6 +49,7 @@ public class UtilisateurController {
             return ResponseEntity.notFound().build();
         }
     }
+
 
 
     @PatchMapping("/{nomUtilisateur}/ajouter-solde")
@@ -53,6 +61,13 @@ public class UtilisateurController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                     .body(Map.of("error", "Utilisateur non authentifié"));
         }
+
+        String usernameAuth = authentication.getName();
+        if (!usernameAuth.equals(nomUtilisateur)) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body(Map.of("error", "Vous ne pouvez modifier que votre propre solde"));
+        }
+
         if (montant == null || montant <= 0) {
             return ResponseEntity.badRequest().body(Map.of("error", "Montant invalide"));
         }
@@ -64,6 +79,7 @@ public class UtilisateurController {
         }
     }
 
+
     @PatchMapping("/{nomUtilisateur}/reduire-solde")
     public ResponseEntity<?> reduireSolde(
             @PathVariable String nomUtilisateur,
@@ -73,9 +89,17 @@ public class UtilisateurController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                     .body(Map.of("error", "Utilisateur non authentifié"));
         }
+
+        String usernameAuth = authentication.getName();
+        if (!usernameAuth.equals(nomUtilisateur)) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body(Map.of("error", "Vous ne pouvez modifier que votre propre solde"));
+        }
+
         if (montant == null || montant <= 0) {
             return ResponseEntity.badRequest().body(Map.of("error", "Montant invalide"));
         }
+
         UtilisateurInfoDTO dto = utilisateurService.reduireSolde(nomUtilisateur, montant);
         if (dto != null) {
             return ResponseEntity.ok(Map.of("solde", dto.getSolde()));
@@ -83,5 +107,6 @@ public class UtilisateurController {
             return ResponseEntity.badRequest().body(Map.of("error", "Solde insuffisant ou utilisateur introuvable"));
         }
     }
+
 
 }
