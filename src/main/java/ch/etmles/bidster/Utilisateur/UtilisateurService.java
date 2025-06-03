@@ -1,6 +1,8 @@
 package ch.etmles.bidster.Utilisateur;
 
 import ch.etmles.bidster.Utilisateur.DTO.UtilisateurDTO;
+import ch.etmles.bidster.Utilisateur.DTO.UtilisateurInfoDTO;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -58,7 +60,33 @@ public class UtilisateurService {
         }
     }
 
-    public UtilisateurEntity getUtilisateurParNom(String nomUtilisateur) {
-        return utilisateurRepository.findById(nomUtilisateur).orElse(null);
+    @Transactional
+    public UtilisateurInfoDTO ajouterSolde(String nomUtilisateur, Double montant) {
+        UtilisateurEntity utilisateur = utilisateurRepository.findById(nomUtilisateur).orElse(null);
+        if (utilisateur != null && montant > 0) {
+            utilisateur.setSolde(utilisateur.getSolde() + montant);
+            utilisateurRepository.save(utilisateur);
+            return new UtilisateurInfoDTO(utilisateur);
+        }
+        return null;
+    }
+
+    @Transactional
+    public UtilisateurInfoDTO reduireSolde(String nomUtilisateur, Double montant) {
+        UtilisateurEntity utilisateur = utilisateurRepository.findById(nomUtilisateur).orElse(null);
+        if (utilisateur != null && montant > 0 && utilisateur.getSolde() >= montant) {
+            utilisateur.setSolde(utilisateur.getSolde() - montant);
+            utilisateurRepository.save(utilisateur);
+            return new UtilisateurInfoDTO(utilisateur);
+        }
+        return null;
+    }
+
+    public UtilisateurInfoDTO getUtilisateurParNom(String nomUtilisateur) {
+        UtilisateurEntity utilisateur = utilisateurRepository.findById(nomUtilisateur).orElse(null);
+        if (utilisateur != null) {
+            return new UtilisateurInfoDTO(utilisateur);
+        }
+        return null;
     }
 }

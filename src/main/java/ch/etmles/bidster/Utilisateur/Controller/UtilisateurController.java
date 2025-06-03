@@ -35,12 +35,52 @@ public class UtilisateurController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                     .body(Map.of("error", "Utilisateur non authentifié"));
         }
-        UtilisateurEntity utilisateur = utilisateurService.getUtilisateurParNom(nomUtilisateur);
-        if (utilisateur != null) {
-            UtilisateurInfoDTO dto = new UtilisateurInfoDTO(utilisateur);
+        UtilisateurInfoDTO dto = utilisateurService.getUtilisateurParNom(nomUtilisateur);
+        if (dto != null) {
             return ResponseEntity.ok(dto);
         } else {
             return ResponseEntity.notFound().build();
+        }
+    }
+
+
+    @PatchMapping("/{nomUtilisateur}/ajouter-solde")
+    public ResponseEntity<?> ajouterSolde(
+            @PathVariable String nomUtilisateur,
+            @RequestParam Double montant,
+            Authentication authentication) {
+        if (authentication == null || !authentication.isAuthenticated()) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body(Map.of("error", "Utilisateur non authentifié"));
+        }
+        if (montant == null || montant <= 0) {
+            return ResponseEntity.badRequest().body(Map.of("error", "Montant invalide"));
+        }
+        UtilisateurInfoDTO dto = utilisateurService.ajouterSolde(nomUtilisateur, montant);
+        if (dto != null) {
+            return ResponseEntity.ok(Map.of("solde", dto.getSolde()));
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @PatchMapping("/{nomUtilisateur}/reduire-solde")
+    public ResponseEntity<?> reduireSolde(
+            @PathVariable String nomUtilisateur,
+            @RequestParam Double montant,
+            Authentication authentication) {
+        if (authentication == null || !authentication.isAuthenticated()) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body(Map.of("error", "Utilisateur non authentifié"));
+        }
+        if (montant == null || montant <= 0) {
+            return ResponseEntity.badRequest().body(Map.of("error", "Montant invalide"));
+        }
+        UtilisateurInfoDTO dto = utilisateurService.reduireSolde(nomUtilisateur, montant);
+        if (dto != null) {
+            return ResponseEntity.ok(Map.of("solde", dto.getSolde()));
+        } else {
+            return ResponseEntity.badRequest().body(Map.of("error", "Solde insuffisant ou utilisateur introuvable"));
         }
     }
 
