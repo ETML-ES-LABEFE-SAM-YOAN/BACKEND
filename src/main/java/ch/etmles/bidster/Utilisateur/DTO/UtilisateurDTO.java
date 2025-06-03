@@ -1,4 +1,4 @@
-package ch.etmles.bidster.Utilisateur;
+package ch.etmles.bidster.Utilisateur.DTO;
 
 public class UtilisateurDTO {
     public String nomUtilisateur;
