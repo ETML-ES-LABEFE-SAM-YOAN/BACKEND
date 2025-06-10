@@ -1,0 +1,37 @@
+version: "3.9"
+services:
+  db:
+    image: mysql:8.0
+    container_name: -mysql
+    environment:
+      MYSQL_DATABASE: bidstbidsterer
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: rootpassword
+    ports:
+     - "13306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+      - C:\Users\samdreneau\Desktop\PROJET_BE-FE\TheLakeTeam\src\main\resources:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  app:
+    build: .
+    container_name: bidster-app
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "8080:8080"
+    env_file:
+      - .env
+    environment:
+      SPRING_CONFIG_IMPORT: optional:file:.env[.properties]
+    restart: unless-stopped
+
+volumes:
+  db_data:

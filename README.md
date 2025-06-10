@@ -140,7 +140,7 @@ Le projet est organisé comme suit :
 ├── │   │   └───resources
 ├── │   │           application.properties
 ├── │   │           CREATE-DB-TABLES-USER.sql
-├── │   │           DATASET.SQL
+├── │   │           DATASET.sql
 ├── │   │
 ├── │   └───test
 ├── │       └───java
@@ -177,7 +177,7 @@ Classe utilitaire pour l’initialisation ou le chargement de la base de donnée
 Exemple ou module hérité d’un autre projet (à adapter ou supprimer selon l’usage réel dans ton projet).
 
 -`resources/` :
-Contient les fichiers de configuration (application.properties) et les scripts SQL d'initialisation (CREATE-DB-TABLES-USER.sql, DATASET.SQL).
+Contient les fichiers de configuration (application.properties) et les scripts SQL d'initialisation (CREATE-DB-TABLES-USER.sql, DATASET.sql).
 
 -`test/` :
 Contiendra les tests unitaires et d’intégration pour les différentes couches de l’application.
