@@ -135,6 +135,21 @@ public class EnchereService {
         return lotRepository.findByEnchereGagnante_Utilisateur_NomUtilisateur(nomUtilisateur);
     }
 
+    public int getNombreEncheresGagnees(String nomUtilisateur) {
+        List<LotEntity> lotsGagnes = getLotsGagnesParUtilisateur(nomUtilisateur);
+        return lotsGagnes.size();
+    }
+
+    public int getNombreEncheresPlaceesEnCours(String nomUtilisateur) {
+        UtilisateurEntity utilisateur = utilisateurRepository.findByNomUtilisateur(nomUtilisateur)
+                .orElseThrow(() -> new UtilisateurNotFoundException("Utilisateur non trouvé"));
+
+        // On ne compte que les enchères sur des lots dont le statut est "Enchere"
+        return enchereRepository.countByUtilisateurAndLot_Status(utilisateur, LotEntity.Status.Enchere);
+    }
+
+
+
     public LotStatusDto toDto(LotEntity lot) {
         LotStatusDto dto = new LotStatusDto();
         dto.setId(lot.getId_lot());

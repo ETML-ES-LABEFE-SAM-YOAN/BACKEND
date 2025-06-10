@@ -11,5 +11,7 @@ public interface EnchereRepository extends JpaRepository<EnchereEntity, Long> {
     List<EnchereEntity> findByLotOrderByMontantDesc(LotEntity lot);
     Optional<EnchereEntity> findTopByLotOrderByMontantDesc(LotEntity lot);
     List<EnchereEntity> findByUtilisateurOrderByDateEnchereDesc(UtilisateurEntity utilisateur);
+    int countByUtilisateurAndLot_Status(UtilisateurEntity utilisateur, LotEntity.Status status);
+
 
 }

@@ -191,6 +191,32 @@ public class EnchereController {
         return ResponseEntity.ok(Map.of("message", "Lot remis en vente"));
     }
 
+    @GetMapping("/gagnees/count/{nomUtilisateur}")
+    public ResponseEntity<?> getNombreEncheresGagnees(@PathVariable String nomUtilisateur, Authentication authentication) {
+        String nomUtilisateurToken = authentication.getName();
+
+        if (!nomUtilisateur.equals(nomUtilisateurToken)) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body(Map.of("error", "Vous ne pouvez consulter que vos propres statistiques."));
+        }
+
+        int count = enchereService.getNombreEncheresGagnees(nomUtilisateur);
+        return ResponseEntity.ok(Map.of("nombreEncheresGagnees", count));
+    }
+
+    @GetMapping("/placees/count/{nomUtilisateur}")
+    public ResponseEntity<?> getNombreEncheresPlacees(@PathVariable String nomUtilisateur, Authentication authentication) {
+        String nomUtilisateurToken = authentication.getName();
+
+        if (!nomUtilisateur.equals(nomUtilisateurToken)) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body(Map.of("error", "Vous ne pouvez consulter que vos propres statistiques."));
+        }
+
+        int count = enchereService.getNombreEncheresPlaceesEnCours(nomUtilisateur);
+        return ResponseEntity.ok(Map.of("nombreEncheresPlacees", count));
+    }
+
 
 
     @GetMapping("/lots/invendus/utilisateur/{username}")
