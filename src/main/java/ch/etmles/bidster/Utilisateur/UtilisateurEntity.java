@@ -32,12 +32,8 @@ public class UtilisateurEntity {
     @Temporal(TemporalType.TIMESTAMP)
     private Date dateCreation;
 
-    // Relation avec Lot : Un utilisateur possède plusieurs lots
-    /*@OneToMany(mappedBy = "utilisateur", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<LotEntity> lots;
-    */
-    // Constructor
 
+    // Constructor
     public UtilisateurEntity(String nomUtilisateur, String nom, String motDePasse, String prenom, String email, String npa, Double solde, String rue, String telephone, String localite /*List<LotEntity> lots*/) {
         setNomUtilisateur(nomUtilisateur);
         setNom(nom);

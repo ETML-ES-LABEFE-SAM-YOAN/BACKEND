@@ -1,6 +1,7 @@
 package ch.etmles.bidster.Lot;
 
 import ch.etmles.bidster.Categorie.CategorieEntity;
+import ch.etmles.bidster.Enchere.EnchereEntity;
 import ch.etmles.bidster.Utilisateur.UtilisateurEntity;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -21,13 +22,16 @@ public class LotEntity {
     /*Enum Status*/
     public enum Status {
         Enchere,
-        Terminer
+        Terminer,
+        Invendu
     }
     @Enumerated(EnumType.STRING)
     private Status status;
 
     private Double enchere_depart;
-    private Date date_heure_fin;
+    @Column(name = "date_heure_fin")
+    private Date dateHeureFin;
+
     private String description;
 
     @ManyToOne
@@ -42,6 +46,11 @@ public class LotEntity {
     @JoinColumn(name = "utilisateur_nom_utilisateur", referencedColumnName = "nom_utilisateur", nullable = false)
     private UtilisateurEntity utilisateur;
 
+    @OneToOne
+    @JoinColumn(name = "enchere_gagnante_id")
+    private EnchereEntity enchereGagnante;
+
+    private boolean venteConfirmee = false;
 
 
     public LotEntity() {}
@@ -51,11 +60,13 @@ public class LotEntity {
         setDetails(details);
         setStatus(Status.Enchere);
         setEnchere(enchere);
-        setDate_heure_fin(date_heure_fin);
+        setDateHeureFin(date_heure_fin);
         setDescription(description);
         setImage(image);
         setCategorie(categorie);
         setUtilisateur(utilisateur);
+        setVenteConfirmee(false);
+        setEnchereGagnante(null);
     }
 
     // Getters et setters...
@@ -78,8 +89,9 @@ public class LotEntity {
     public Double getEnchere() { return enchere_depart; }
     public void setEnchere(Double enchere) { this.enchere_depart = enchere; }
 
-    public Date getDate_heure_fin() { return date_heure_fin; }
-    public void setDate_heure_fin(Date date_heure_fin) { this.date_heure_fin = date_heure_fin; }
+    public Date getDateHeureFin() { return dateHeureFin; }
+    public void setDateHeureFin(Date dateHeureFin) { this.dateHeureFin = dateHeureFin; }
+
 
     public String getDescription() { return description; }
     public void setDescription(String description) { this.description = description; }
@@ -93,6 +105,15 @@ public class LotEntity {
     public UtilisateurEntity getUtilisateur() { return utilisateur; }
     public void setUtilisateur(UtilisateurEntity utilisateur) { this.utilisateur = utilisateur; }
 
+    public EnchereEntity getEnchereGagnante() { return enchereGagnante; }
+    public void setEnchereGagnante(EnchereEntity enchereGagnante) {
+        this.enchereGagnante = enchereGagnante;
+    }
+
+    public boolean isVenteConfirmee() { return venteConfirmee; }
+    public void setVenteConfirmee(boolean venteConfirmee) {
+        this.venteConfirmee = venteConfirmee;
+    }
 
     @Override
     public String toString() {
@@ -102,7 +123,7 @@ public class LotEntity {
                 ", details='" + getDetails() + '\'' +
                 ", status=" + getStatus() + '\'' +
                 ", enchere=" + getEnchere() +
-                ", date_heure_fin=" + getDate_heure_fin() +
+                ", date_heure_fin=" + getDateHeureFin() +
                 ", description='" + getDescription() + '\'' +
                 ", image='" + getImage() + '\'' +
                 ", categorie=" + (getCategorie() != null ? getCategorie().getNom() : null) +
