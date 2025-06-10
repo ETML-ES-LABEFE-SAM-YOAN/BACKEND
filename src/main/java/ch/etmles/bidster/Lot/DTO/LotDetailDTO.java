@@ -19,7 +19,7 @@ public class LotDetailDTO {
         setNom_article(lot.getNom_article());
         setDetails(lot.getDetails());
         setEnchere(lot.getEnchere());
-        setDate_heure_fin(lot.getDate_heure_fin());
+        setDate_heure_fin(lot.getDateHeureFin());
         setDescription(lot.getDescription());
         setImage(lot.getImage());
         setUtilisateur(lot.getUtilisateur().getNomUtilisateur());
