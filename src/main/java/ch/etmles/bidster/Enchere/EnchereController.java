@@ -51,6 +51,12 @@ public class EnchereController {
                     .body(Map.of("error", "Impossible de placer une enchère : le lot n'est pas ouvert aux enchères."));
         }
 
+        // Vérification que l'utilisateur n'est pas le créateur du lot
+        if (lot.getUtilisateur().getNomUtilisateur().equals(nomUtilisateurToken)) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                    .body(Map.of("error", "Vous ne pouvez pas enchérir sur votre propre lot."));
+        }
+
         // Placement de l'enchère
         EnchereEntity enchere = enchereService.placerEnchere(dto.getLotId(), nomUtilisateurToken, dto.getMontant());
         return ResponseEntity.ok(enchereService.toDto(enchere));

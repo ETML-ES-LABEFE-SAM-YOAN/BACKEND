@@ -17,25 +17,25 @@ public class UtilisateurService {
     private PasswordEncoder passwordEncoder;
 
     public UtilisateurEntity creerUtilisateur(UtilisateurDTO dto) {
-        if (utilisateurRepository.findByNomUtilisateur(dto.nomUtilisateur).isPresent()) {
+        if (utilisateurRepository.findByNomUtilisateur(dto.getNomUtilisateur()).isPresent()) {
             throw new UserAlreadyExistsException("Nom d'utilisateur déjà utilisé !");
         }
-        if (utilisateurRepository.findByEmail(dto.email).isPresent()) {
+        if (utilisateurRepository.findByEmail(dto.getEmail()).isPresent()) {
             throw new UserAlreadyExistsException("Cette adresse email est déjà utilisée. Veuillez en utiliser une autre ou vous connecter.");
         }
 
-        validerMotDePasse(dto.motDePasse);
+        validerMotDePasse(dto.getMotDePasse());
 
         UtilisateurEntity utilisateur = new UtilisateurEntity();
-        utilisateur.setNomUtilisateur(dto.nomUtilisateur);
-        utilisateur.setNom(dto.nom);
-        utilisateur.setPrenom(dto.prenom);
-        utilisateur.setEmail(dto.email);
-        utilisateur.setMotDePasse(passwordEncoder.encode(dto.motDePasse)); // <-- Hash ici !
-        utilisateur.setTelephone(dto.telephone);
-        utilisateur.setRue(dto.rue);
-        utilisateur.setNpa(dto.npa);
-        utilisateur.setLocalite(dto.localite);
+        utilisateur.setNomUtilisateur(dto.getNomUtilisateur());
+        utilisateur.setNom(dto.getNom());
+        utilisateur.setPrenom(dto.getPrenom());
+        utilisateur.setEmail(dto.getEmail());
+        utilisateur.setMotDePasse(passwordEncoder.encode(dto.getMotDePasse())); // <-- Hash ici !
+        utilisateur.setTelephone(dto.getTelephone());
+        utilisateur.setRue(dto.getRue());
+        utilisateur.setNpa(dto.getNpa());
+        utilisateur.setLocalite(dto.getLocalite());
         utilisateur.setSolde(0.0);
         utilisateur.setDateCreation(new java.util.Date());
 
@@ -89,4 +89,18 @@ public class UtilisateurService {
         }
         return null;
     }
+
+    public UtilisateurEntity updateUtilisateur(String nomUtilisateur, UtilisateurInfoDTO dto) {
+        UtilisateurEntity utilisateur = utilisateurRepository.findByNomUtilisateur(nomUtilisateur)
+                .orElseThrow(() -> new UtilisateurNotFoundException("Utilisateur non trouvé"));
+        utilisateur.setNom(dto.getNom());
+        utilisateur.setPrenom(dto.getPrenom());
+        utilisateur.setEmail(dto.getEmail());
+        utilisateur.setTelephone(dto.getTelephone());
+        utilisateur.setRue(dto.getRue());
+        utilisateur.setNpa(dto.getNpa());
+        utilisateur.setLocalite(dto.getLocalite());
+        return utilisateurRepository.save(utilisateur);
+    }
+
 }

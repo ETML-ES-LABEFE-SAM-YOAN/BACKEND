@@ -1,5 +1,8 @@
 package ch.etmles.bidster.Utilisateur.Controller;
 
+import ch.etmles.bidster.Enchere.EnchereService;
+import ch.etmles.bidster.Lot.DTO.LotStatusDto;
+import ch.etmles.bidster.Lot.LotEntity;
 import ch.etmles.bidster.Utilisateur.DTO.UtilisateurDTO;
 import ch.etmles.bidster.Utilisateur.DTO.UtilisateurInfoDTO;
 import ch.etmles.bidster.Utilisateur.UtilisateurEntity;
@@ -11,6 +14,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -19,6 +23,8 @@ public class UtilisateurController {
 
     @Autowired
     private UtilisateurService utilisateurService;
+    @Autowired
+    private EnchereService enchereService;
 
     @PostMapping
     public ResponseEntity<UtilisateurEntity> creerUtilisateur(@RequestBody UtilisateurDTO dto) {
@@ -106,6 +112,34 @@ public class UtilisateurController {
         } else {
             return ResponseEntity.badRequest().body(Map.of("error", "Solde insuffisant ou utilisateur introuvable"));
         }
+    }
+
+    @GetMapping("/{nomUtilisateur}/lots-vendus")
+    public ResponseEntity<?> getLotsVendus(@PathVariable String nomUtilisateur, Authentication authentication) {
+        String nomUtilisateurToken = authentication.getName();
+        if (!nomUtilisateur.equals(nomUtilisateurToken)) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body(Map.of("error", "Utilisateur non authentifié"));
+        }
+        List<LotEntity> lots = enchereService.getLotsParVendeur(nomUtilisateur);
+        List<LotStatusDto> dtos = lots.stream()
+                .map(enchereService::toDto)
+                .toList();
+        return ResponseEntity.ok(dtos);
+    }
+
+    @PutMapping("/{nomUtilisateur}")
+    public ResponseEntity<?> updateUtilisateur(
+            @PathVariable String nomUtilisateur,
+            @RequestBody UtilisateurInfoDTO dto,
+            Authentication authentication) {
+        String nomUtilisateurToken = authentication.getName();
+        if (!nomUtilisateur.equals(nomUtilisateurToken)) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body(Map.of("error", "Utilisateur non authentifié"));
+        }
+        UtilisateurEntity updated = utilisateurService.updateUtilisateur(nomUtilisateur, dto);
+        return ResponseEntity.ok(updated);
     }
 
 

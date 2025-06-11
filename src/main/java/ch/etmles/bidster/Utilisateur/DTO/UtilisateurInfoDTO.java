@@ -17,6 +17,8 @@ public class UtilisateurInfoDTO {
     public Date dateCreation;
 
     // Constructeur à partir de l'entité
+    public UtilisateurInfoDTO() {}
+
     public UtilisateurInfoDTO(UtilisateurEntity utilisateur) {
         setNomUtilisateur(utilisateur.getNomUtilisateur());
         setNom(utilisateur.getNom());

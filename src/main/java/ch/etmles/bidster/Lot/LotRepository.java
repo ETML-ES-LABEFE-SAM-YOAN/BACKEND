@@ -17,5 +17,7 @@ public interface LotRepository extends JpaRepository<LotEntity, Long> {
 
     List<LotEntity> findByEnchereGagnante_Utilisateur_NomUtilisateur(String nomUtilisateur);
     List<LotEntity> findByStatusAndUtilisateur_NomUtilisateur(LotEntity.Status status, String nomUtilisateur);
+    List<LotEntity> findByUtilisateur(UtilisateurEntity utilisateur);
+
 
 }

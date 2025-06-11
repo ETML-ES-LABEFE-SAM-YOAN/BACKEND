@@ -148,6 +148,11 @@ public class EnchereService {
         return enchereRepository.countByUtilisateurAndLot_Status(utilisateur, LotEntity.Status.Enchere);
     }
 
+    public List<LotEntity> getLotsParVendeur(String nomUtilisateur) {
+        UtilisateurEntity utilisateur = utilisateurRepository.findByNomUtilisateur(nomUtilisateur)
+                .orElseThrow(() -> new UtilisateurNotFoundException("Utilisateur non trouvé"));
+        return lotRepository.findByUtilisateur(utilisateur);
+    }
 
 
     public LotStatusDto toDto(LotEntity lot) {
