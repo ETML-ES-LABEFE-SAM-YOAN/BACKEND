@@ -25,6 +25,13 @@ public class JwtAuthFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
             throws ServletException, IOException {
+        // Ignore JWT filter for static resources (images)
+        String path = request.getRequestURI();
+        if (path.startsWith("/images/")) {
+            chain.doFilter(request, response);
+            return;
+        }
+
         System.out.println("[JWT FILTER] Requête interceptée : " + request.getRequestURI());
         String header = request.getHeader("Authorization");
         String token = null, username = null;

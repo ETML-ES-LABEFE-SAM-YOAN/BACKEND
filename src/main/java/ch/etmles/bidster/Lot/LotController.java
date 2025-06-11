@@ -8,9 +8,16 @@ import ch.etmles.bidster.Lot.DTO.LotDetailDTO;
 import ch.etmles.bidster.Utilisateur.UtilisateurEntity;
 import ch.etmles.bidster.Utilisateur.UtilisateurRepository;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
 import java.util.Map;
 
@@ -82,8 +89,11 @@ public class LotController {
      * curl -X POST "http://localhost:8080/v1/lots" -H "Content-Type: application/json" -d "{\"nom_article\": \"Tableau Moderne\", \"details\": \"Peinture acrylique sur toile, 60x80cm\", \"enchere
      * \": 100.0, \"date_heure_fin\": \"2025-06-01T18:00:00\", \"description\": \"Œuvre unique signée par l'artiste.\", \"image\": \"https://exemple.com/images/tableau.jpg\", \"idCategorie\": 3}"
      */
-    @PostMapping
-    public ResponseEntity<?> createLot(@RequestBody LotCreateDTO lotcreateDTO, Authentication authentication) {
+    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<?> createLot(
+            @RequestPart("lot") LotCreateDTO lotcreateDTO,
+            @RequestPart(value = "image", required = false) MultipartFile image,
+            Authentication authentication) {
         if (lotcreateDTO.getIdCategorie() == null) {
             return ResponseEntity
                     .badRequest()
@@ -91,21 +101,36 @@ public class LotController {
         }
 
         try {
+            // Gestion de l'image si présente
+            String fileName = null;
+            if (image != null && !image.isEmpty()) {
+                String uploadDir = "images/";
+                fileName = System.currentTimeMillis() + "_" + image.getOriginalFilename();
+                Path filePath = Paths.get(uploadDir, fileName);
+                Files.createDirectories(filePath.getParent());
+                Files.copy(image.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
+
+                // Concatène le baseUrl ici
+                String baseUrl = "http://localhost:8080/images/"; // Idéalement à mettre en propriété de config
+                lotcreateDTO.setImage(baseUrl + fileName); // Stocke l'URL complète dans le DTO
+            }
+
+
             // Récupération de la catégorie
             CategorieEntity categorie = categorieRepository.findById(lotcreateDTO.getIdCategorie())
                     .orElseThrow(() -> new CategorieNotFoundException(String.valueOf(lotcreateDTO.getIdCategorie())));
 
-            // Récupération du nom d'utilisateur connecté
-            String nomUtilisateur = authentication.getName();
-
-            // Récupération de l'utilisateur en base
-            UtilisateurEntity utilisateur = utilisateurRepository.findByNomUtilisateur(nomUtilisateur)
-                    .orElseThrow(() -> new RuntimeException("Utilisateur non trouvé"));
-
+            // Vérification de l'authentification
             if (authentication == null || !authentication.isAuthenticated()) {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                         .body(Map.of("error", "Utilisateur non authentifié"));
             }
+
+            // Récupération de l'utilisateur connecté
+            String nomUtilisateur = authentication.getName();
+            UtilisateurEntity utilisateur = utilisateurRepository.findByNomUtilisateur(nomUtilisateur)
+                    .orElseThrow(() -> new RuntimeException("Utilisateur non trouvé"));
+
             // Création de l'entité Lot
             LotEntity lot = new LotEntity(
                     lotcreateDTO.getNom_article(),
@@ -114,7 +139,7 @@ public class LotController {
                     lotcreateDTO.getEnchere(),
                     lotcreateDTO.getDate_heure_fin(),
                     lotcreateDTO.getDescription(),
-                    lotcreateDTO.getImage(),
+                    lotcreateDTO.getImage(), // nom du fichier image ou null
                     categorie,
                     utilisateur
             );
@@ -138,6 +163,5 @@ public class LotController {
                     .body(Map.of("error", "Une erreur interne est survenue"));
         }
     }
-
 }
 

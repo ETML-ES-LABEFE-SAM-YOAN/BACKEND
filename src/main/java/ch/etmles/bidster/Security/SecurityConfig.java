@@ -52,6 +52,7 @@ public class SecurityConfig {
                 )
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
+                                "/images/**",
                                 "v1/utilisateurs",
                                 "v1/lots/sous-categorie/**",
                                 "v1/lots/categorie-principale/**",
