@@ -3,6 +3,7 @@ package ch.etmles.bidster.Utilisateur.Controller;
 import ch.etmles.bidster.Enchere.EnchereService;
 import ch.etmles.bidster.Lot.DTO.LotStatusDto;
 import ch.etmles.bidster.Lot.LotEntity;
+import ch.etmles.bidster.Utilisateur.DTO.SoldeOperationDTO;
 import ch.etmles.bidster.Utilisateur.DTO.UtilisateurDTO;
 import ch.etmles.bidster.Utilisateur.DTO.UtilisateurInfoDTO;
 import ch.etmles.bidster.Utilisateur.UtilisateurEntity;
@@ -61,7 +62,7 @@ public class UtilisateurController {
     @PatchMapping("/{nomUtilisateur}/ajouter-solde")
     public ResponseEntity<?> ajouterSolde(
             @PathVariable String nomUtilisateur,
-            @RequestParam Double montant,
+            @RequestBody SoldeOperationDTO operationDTO,
             Authentication authentication) {
         if (authentication == null || !authentication.isAuthenticated()) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
@@ -74,9 +75,15 @@ public class UtilisateurController {
                     .body(Map.of("error", "Vous ne pouvez modifier que votre propre solde"));
         }
 
+        Double montant = operationDTO.getMontant();
         if (montant == null || montant <= 0) {
             return ResponseEntity.badRequest().body(Map.of("error", "Montant invalide"));
         }
+
+        if (montant > 1_000_000) {
+            return ResponseEntity.badRequest().body(Map.of("error", "Le montant maximum autorisé est 1 000 000"));
+        }
+
         UtilisateurInfoDTO dto = utilisateurService.ajouterSolde(nomUtilisateur, montant);
         if (dto != null) {
             return ResponseEntity.ok(Map.of("solde", dto.getSolde()));
@@ -86,10 +93,11 @@ public class UtilisateurController {
     }
 
 
+
     @PatchMapping("/{nomUtilisateur}/reduire-solde")
     public ResponseEntity<?> reduireSolde(
             @PathVariable String nomUtilisateur,
-            @RequestParam Double montant,
+            @RequestBody SoldeOperationDTO operationDTO,
             Authentication authentication) {
         if (authentication == null || !authentication.isAuthenticated()) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
@@ -102,8 +110,13 @@ public class UtilisateurController {
                     .body(Map.of("error", "Vous ne pouvez modifier que votre propre solde"));
         }
 
+        Double montant = operationDTO.getMontant();
         if (montant == null || montant <= 0) {
             return ResponseEntity.badRequest().body(Map.of("error", "Montant invalide"));
+        }
+
+        if (montant > 1_000_000) {
+            return ResponseEntity.badRequest().body(Map.of("error", "Le montant maximum autorisé est 1 000 000"));
         }
 
         UtilisateurInfoDTO dto = utilisateurService.reduireSolde(nomUtilisateur, montant);
