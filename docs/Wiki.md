@@ -17,10 +17,3 @@
 ## Sécurité
 - **Spring Security**
     - Pourquoi : Intégration native avec Spring Boot, gestion facile des rôles et authentification.
-
-
-## Outils complémentaires
-- **Swagger**
-    - Pourquoi : Documentation automatique des endpoints REST.
-
-
