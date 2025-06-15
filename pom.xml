@@ -12,8 +12,9 @@
 	<artifactId>bidster</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>bidster</name>
-	<description>Training depot for Spring</description>
-	<properties>
+	<description>
+		Application d’enchères en ligne développée avec Spring Boot, structurée en modules métier (catégories, lots, enchères, utilisateurs) et intégrant une sécurité JWT. Le projet propose une architecture claire, une gestion fine des exceptions, des scripts d’initialisation SQL, et une documentation UML. Idéal pour l’apprentissage ou la mise en place rapide d’une plateforme d’enchères sécurisée et évolutive.
+	</description>	<properties>
 		<java.version>17</java.version>
 	</properties>
 	<dependencies>
